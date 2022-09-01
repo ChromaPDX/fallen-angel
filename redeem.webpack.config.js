@@ -8,10 +8,10 @@ const isProduction = process.env.NODE_ENV == "production";
 const stylesHandler = "style-loader";
 
 const config = {
-  entry: "./src/checkout.ts",
+  entry: "./src/redeem.ts",
   output: {
     // path: path.resolve(__dirname, "dist"),
-    filename: 'checkout.bundle.js',
+    filename: 'redeem.bundle.js',
   },
   devServer: {
     open: true,

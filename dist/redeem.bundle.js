@@ -9,13 +9,13 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/checkout.ts":
-/*!*************************!*\
-  !*** ./src/checkout.ts ***!
-  \*************************/
+/***/ "./src/redeem.ts":
+/*!***********************!*\
+  !*** ./src/redeem.ts ***!
+  \***********************/
 /***/ (() => {
 
-eval("throw new Error(\"Module build failed (from ./node_modules/ts-loader/index.js):\\nError: \\u001b[31merror while parsing tsconfig.json\\u001b[39m\\n    at Object.loader (/Users/adam/Code/liquidCollectionXChroma/node_modules/ts-loader/dist/index.js:17:18)\");\n\n//# sourceURL=webpack://liquidCollectionXChroma/./src/checkout.ts?");
+eval("console.log(\"hello redeem\");\n\n\n//# sourceURL=webpack://liquidCollectionXChroma/./src/redeem.ts?");
 
 /***/ })
 
@@ -24,9 +24,9 @@ eval("throw new Error(\"Module build failed (from ./node_modules/ts-loader/index
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./src/checkout.ts"]();
+/******/ 	__webpack_modules__["./src/redeem.ts"]();
 /******/ 	
 /******/ })()
 ;
