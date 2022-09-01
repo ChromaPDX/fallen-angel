@@ -1,0 +1,12 @@
+{
+  "name": "liquidCollectionXChroma",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:ChromaPDX/liquidCollectionXChroma.git",
+  "author": "adam wong <adamwong246@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ts": "^0.2.2",
+    "webpack": "^5.74.0"
+  }
+}
