@@ -1,5 +1,5 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
-
+const webpack = require('webpack')
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -13,17 +13,17 @@ const config = {
     // path: path.resolve(__dirname, "dist"),
     filename: 'redeem.bundle.js',
   },
+  experiments: {
+    topLevelAwait: true
+  },
   devServer: {
     open: true,
     host: "localhost",
   },
   plugins: [
-    // new HtmlWebpackPlugin({
-    //   template: "src/client/index.html",
-    // }),
-
-    // Add your plugins here
-    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+    new HtmlWebpackPlugin({}),
+    new webpack.ProvidePlugin({ process: 'process/browser' }),
+    new webpack.ProvidePlugin({ Buffer: ['buffer', 'Buffer'] }),
   ],
   module: {
     rules: [
@@ -47,6 +47,20 @@ const config = {
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
+    fallback:
+    {
+      url: require.resolve('url'),
+      fs: require.resolve('fs'),
+      assert: require.resolve('assert'),
+      crypto: require.resolve('crypto-browserify'),
+      http: require.resolve('stream-http'),
+      https: require.resolve('https-browserify'),
+      // os: require.resolve('os-browserify/browser'),
+      buffer: require.resolve('buffer'),
+      stream: require.resolve('stream-browserify'),
+    }
+
+
   },
 };
 
