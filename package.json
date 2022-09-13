@@ -6,16 +6,24 @@
   "author": "adam wong <adamwong246@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@thirdweb-dev/sdk": "^2.4.1",
     "html-webpack-plugin": "^5.5.0",
+    "thirdweb": "^0.7.10",
     "ts-loader": "^9.3.1",
     "typescript": "4.8.2",
-    "webpack": "^5.74.0"
+    "webpack": "^5.74.0",
+    "@thirdweb-dev/contracts": "^3",
+    "@openzeppelin/contracts": "4.7.3"
   },
   "devDependencies": {
-    "webpack-cli": "^4.10.0"
+    "webpack-cli": "^4.10.0",
+    "hardhat": "^2.10.1"
   },
   "scripts": {
     "packIt": "yarn webpack -c checkout.webpack.config.js & yarn webpack -c redeem.webpack.config.js",
-    "doIt": "rm -rf node_modules && rm -rf dist/** && yarn install && yarn packIt"
+    "doIt": "rm -rf node_modules && rm -rf dist/** && yarn install && yarn packIt",
+    "nft:build": "npx thirdweb@latest detect",
+    "nft:deploy": "npx thirdweb@latest deploy",
+    "nft:release": "npx thirdweb@latest release"
   }
 }
