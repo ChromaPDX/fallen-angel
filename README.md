@@ -1,6 +1,28 @@
-hello liquid Collection
+# Liquid Collection X Chroma NFT
 
-------
+
+## TL;DR
+### Build contracts
+```
+nft:build
+```
+### Deploy or release your contracts on thirdweb. 
+Take note of the address to which the contract was deployed.
+```
+nft:deploy
+nft:release
+```
+### Build or develop the javascipt bundle passing that address as a command line argument
+```
+app:build SOME_ADDRESS
+app:dev SOME_ADDRESS
+```
+### Redeem.bundle.js can be used as an exportable artifact
+
+
+
+---------------------
+
 
 ## Getting Started
 

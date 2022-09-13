@@ -22,6 +22,7 @@
     "typescript": "4.8.2",
     "url": "^0.11.0",
     "web3": "^1.7.5",
+    "web3-eth-contract": "^1.7.5",
     "web3modal": "^1.9.9",
     "webpack": "^5.74.0"
   },
@@ -30,11 +31,9 @@
     "webpack-cli": "^4.10.0"
   },
   "scripts": {
-    "dev:redeem": "yarn webpack serve -c redeem.webpack.config.js",
-    "packIt": "yarn webpack -c checkout.webpack.config.js & yarn webpack -c redeem.webpack.config.js",
-    "doIt": "rm -rf node_modules && rm -rf dist/** && yarn install && yarn packIt",
     "nft:build": "npx thirdweb@latest detect",
     "nft:deploy": "npx thirdweb@latest deploy",
-    "nft:release": "npx thirdweb@latest release"
+    "nft:release": "npx thirdweb@latest release",
+    "dev:redeem": "yarn webpack serve -c redeem.webpack.config.js --env ",
   }
 }
