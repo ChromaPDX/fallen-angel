@@ -1,27 +1,30 @@
 import Web3 from 'web3';
 import Web3Modal from 'web3modal';
-import { Contract } from "web3-eth-contract";
 
-import ContractAbi from "../artifacts/contracts/Contract.sol/Contract.json";
+const ContractAbi = require("../artifacts/contracts/Contract.sol/Contract.json");
 
 
-declare var ADDRESS: String;
+declare var ADDRESS: string;
 
-console.log("hello redeem.ts", ADDRESS);
-// const web3Modal = new Web3Modal();
-// const provider = await web3Modal.connect();
-// console.log("provider", provider);
-// const web3 = new Web3(provider);
-// const networkId = await web3.eth.net.getId();
+console.log("hello redeem.ts", ADDRESS, ContractAbi);
+const web3Modal = new Web3Modal();
+const provider = await web3Modal.connect();
+const web3 = new Web3(provider);
+const networkId = await web3.eth.net.getId();
+const accounts = await web3.eth.getAccounts();
+const myWalletAddress = accounts[0]
 
-// var contract = new Contract(ContractAbi, address);
+// const web3 = new Web3(window.web3.currentProvider);
 
-// contract.methods.somFunc().send({})
-//   .on('receipt', function () {
-//     console.log("receipt", this)
-//   });
+// console.log("your account", web3.eth.accounts);
 
-console.log("goodbye redeem.ts");
+var contract = new web3.eth.Contract(ContractAbi.abi, ADDRESS);
+contract.methods.walletHoldsToken(myWalletAddress).send({ from: myWalletAddress })
+  .on('receipt', function (r) {
+    console.log("receipt", r)
+  });
+
+console.log("goodbye redeem.ts", myWalletAddress);
 
 // const walletHasTokenOfCollection = (collectionId: String): Promise<'NoWallet' | 'NoToken' | 'Yes'> => {
 //   return new Promise((res, rej) => {

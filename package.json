@@ -34,6 +34,6 @@
     "nft:build": "npx thirdweb@latest detect",
     "nft:deploy": "npx thirdweb@latest deploy",
     "nft:release": "npx thirdweb@latest release",
-    "dev:redeem": "yarn webpack serve -c redeem.webpack.config.js --env ",
+    "dev:redeem": "yarn webpack serve -c redeem.webpack.config.js --env "
   }
 }
