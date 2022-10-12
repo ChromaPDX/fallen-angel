@@ -30,72 +30,74 @@ const Index = (props: any) => {
     /* @ts-ignore:next-line */
     const contract = new web3.eth.Contract(ContractAbi.abi, configs.contractAddress);
 
-    const owner = await contract.methods.owner().call();
-    const mine = await Promise.all((await contract.methods.getTokenIds(configs.contractAddress).call())
+    // const owner = await contract.methods.owner().call();
+
+    const mine = await Promise.all((await contract.methods.getMineWithMetadata(account).call())
       .map(async (nft) => {
-        const u = nft[1].replace("ipfs://", "https://ipfs.io/ipfs/");
+        console.log(nft)
+        // const u = nft[1].replace("ipfs://", "https://ipfs.io/ipfs/");
 
-        const ipfsBlob = await fetch(u)
-          .then(res => {
-            // console.error("mark1", res)
-            try {
-              return res.json()
-            } catch (e) {
-              return {};
-            }
+        // const ipfsBlob = await fetch(u)
+        //   .then(res => {
+        //     // console.error("mark1", res)
+        //     try {
+        //       return res.json()
+        //     } catch (e) {
+        //       return {};
+        //     }
 
-          })
-          .then(
-            (result) => {
-              return result
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-              console.error(error)
-            }
-          )
+        //   })
+        //   .then(
+        //     (result) => {
+        //       return result
+        //     },
+        //     // Note: it's important to handle errors here
+        //     // instead of a catch() block so that we don't swallow
+        //     // exceptions from actual bugs in components.
+        //     (error) => {
+        //       console.error(error)
+        //     }
+        //   )
 
-        const d = {
-          ...ipfsBlob,
+        return {
+          // ...ipfsBlob,
           /* @ts-ignore:next-line */
-          httpImage: ipfsBlob.image.replace("ipfs://", "https://gateway.ipfscdn.io/ipfs/"),
+          // httpImage: ipfsBlob.image.replace("ipfs://", "https://gateway.ipfscdn.io/ipfs/"),
           id: nft[0],
           tokenURI: nft[1],
           redeemed: nft[2],
         }
 
-        console.log("mark3", d);
+        // console.log("mark3", d);
 
-        return d;
+        // return d;
       }));
 
     console.log("mine", mine)
 
-    setLoadingState({ mine, owner, account, mintTextInput: 'your text here' });
+    setLoadingState({ mine, account, contract });
 
 
   }
 
-  async function redeem(nftId) {
-    const web3Modal = new Web3Modal()
-    const provider = await web3Modal.connect()
-    const web3 = new Web3(provider)
-    const contract = new web3.eth.Contract(ContractAbi.abi, configs.contractAddress);
-    const accounts = await web3.eth.getAccounts();
-    const redeemed = await contract.methods.redeem(nftId).send({ from: accounts[0] });
-  }
+  // async function redeem(nftId) {
+  //   const web3Modal = new Web3Modal()
+  //   const provider = await web3Modal.connect()
+  //   const web3 = new Web3(provider)
+  //   const contract = new web3.eth.Contract(ContractAbi.abi, configs.contractAddress);
+  //   const accounts = await web3.eth.getAccounts();
+  //   const redeemed = await contract.methods.redeem(nftId).send({ from: accounts[0] });
+  // }
 
-  async function mint(text: string) {
-    const web3Modal = new Web3Modal()
-    const provider = await web3Modal.connect()
-    const web3 = new Web3(provider)
-    const contract = new web3.eth.Contract(ContractAbi.abi, configs.contractAddress);
-    const accounts = await web3.eth.getAccounts();
-    const mint = await contract.methods.mintTo(accounts[0], text).send({ from: accounts[0] });
-    console.log(mint)
-  }
+  // async function mint(text: string) {
+  //   const web3Modal = new Web3Modal()
+  //   const provider = await web3Modal.connect()
+  //   const web3 = new Web3(provider)
+  //   const contract = new web3.eth.Contract(ContractAbi.abi, configs.contractAddress);
+  //   const accounts = await web3.eth.getAccounts();
+  //   const mint = await contract.methods.mintTo(accounts[0], text).send({ from: accounts[0] });
+  //   console.log(mint)
+  // }
 
 
   return (<>
@@ -115,10 +117,30 @@ const Index = (props: any) => {
 
     <div className="container">
       <h1> hello LiquidCollections</h1>
+      {/* <pre>{JSON.stringify(loadingState)}</pre> */}
+      {
+        loadingState.mine && <>
+          <h2>mine</h2>
+          <ul>
+            {
+              loadingState.mine.map((m, ndx) => <li key={ndx}>
+                <pre>{JSON.stringify(m)}</pre>
+                {
+                  m.redeemed ? <pre>already redeemed!</pre> : <button onClick={(e) => loadingState.contract.methods.redeem(m.id).send({ from: loadingState.account })} >redeem</button>
+                }
+
+              </li>)
+            }
+          </ul>
+        </>
+      }
+
+
     </div>
 
     <footer className="py-5 bg-dark">
-      <div className="container"><p className="m-0 text-center text-white">Made with ❤️ for Web3athon 2022</p></div>
+      <div className="container">
+        <p className="m-0 text-center text-white">Made with ❤️ by Chroma</p></div>
     </footer>
 
   </>);
