@@ -3,19 +3,28 @@ pragma solidity ^0.8.11;
 
 // import {ERC721A} from "@thirdweb-dev/contracts/eip/ERC721A.sol";
 // import "@thirdweb-dev/contracts/drop/DropERC721.sol";
-// import "@thirdweb-dev/contracts/base/ERC721Drop.sol";
+import "@thirdweb-dev/contracts/base/ERC721Drop.sol";
 import "@thirdweb-dev/contracts/eip/interface/IERC721Enumerable.sol";
 
 // import "@thirdweb-dev/contracts/token/TokenERC721.sol";
-import "@thirdweb-dev/contracts/base/ERC721Base.sol";
+// import "@thirdweb-dev/contracts/base/ERC721SignatureMint.sol";
 
-contract LiquidCollection is ERC721Base, IERC721Enumerable {
+contract LiquidCollection is ERC721Drop, IERC721Enumerable {
     constructor(
         string memory _name,
         string memory _symbol,
         address _royaltyRecipient,
-        uint128 _royaltyBps
-    ) ERC721Base(_name, _symbol, _royaltyRecipient, _royaltyBps) {}
+        uint128 _royaltyBps,
+        address _primarySaleRecipient
+    )
+        ERC721Drop(
+            _name,
+            _symbol,
+            _royaltyRecipient,
+            _royaltyBps,
+            _primarySaleRecipient
+        )
+    {}
 
     mapping(uint256 => bool) private redeemed;
 
@@ -64,7 +73,7 @@ contract LiquidCollection is ERC721Base, IERC721Enumerable {
             _metadatasOfOwners[i] = Redeemey({
                 id: tUid,
                 redeemed: redeemed[tUid],
-                tokenURI: ERC721Base.tokenURI(tUid)
+                tokenURI: ERC721A.tokenURI(tUid)
             });
         }
 
