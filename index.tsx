@@ -2,21 +2,23 @@ import React, { useEffect, useState } from "react";
 import Web3 from 'web3';
 import Web3Modal from 'web3modal';
 import ReactDom from "react-dom";
-// import Iframe from 'react-iframe'
+import { DateTime } from "luxon";
+import { GoogleApiProvider, useGoogleApi } from 'react-gapi'
+
+// var gapi = require('gapi');
 
 const ContractAbi = require("./artifacts/contracts/LiquidCollection.sol/LiquidCollection.json");
-
 const configs = require("./config");
 
-// const products = [
-//   { key: 1, name: 'ear rings', description: 'jade earrings', image: 'earrings.png', iframeUrl: 'https://gateway.ipfscdn.io/ipfs/Qmd58GBFkctycME4B1s3BRzG4VQJQMCEc4QX9g13VioFYb/nft-drop.html?contract=0x3Ff89576c444E8Ae3357defc4bE987777899e260&chainId=137&primaryColor=purple' },
-//   { key: 2, name: 'ear rings', description: 'jade earrings', image: 'earrings.png', iframeUrl: 'https://gateway.ipfscdn.io/ipfs/Qmd58GBFkctycME4B1s3BRzG4VQJQMCEc4QX9g13VioFYb/nft-drop.html?contract=0x826509a2c0d4EC0d3B273Aa82f7e7B2e46AE09ef&chainId=137&primaryColor=purple' },
-//   // { key: 3, name: 'ear rings', description: 'jade earrings', image: 'earrings.png', iframeUrl: 'https://gateway.ipfscdn.io/ipfs/Qmd58GBFkctycME4B1s3BRzG4VQJQMCEc4QX9g13VioFYb/nft-drop.html?contract=0x3Ff89576c444E8Ae3357defc4bE987777899e260&chainId=137&primaryColor=purple' },
-//   // { key: 4, name: 'ear rings', description: 'jade earrings', image: 'earrings.png', iframeUrl: 'https://gateway.ipfscdn.io/ipfs/Qmd58GBFkctycME4B1s3BRzG4VQJQMCEc4QX9g13VioFYb/nft-drop.html?contract=0x3Ff89576c444E8Ae3357defc4bE987777899e260&chainId=137&primaryColor=purple' },
-// ];
+const isInState = state => true
+
+const isOldEnough = date => true
+// DateTime.fromISO(date)
+//   .diffNow('years')
+//   .years < -21;
 
 const Index = (props: any) => {
-  const [loadingState, setLoadingState] = useState('not-loaded')
+  const [loadingState, setLoadingState] = useState({ inRedemption: {} })
 
   useEffect(() => { loadNFTs() }, [])
 
@@ -32,107 +34,251 @@ const Index = (props: any) => {
 
     // const owner = await contract.methods.owner().call();
 
-    const mine = await Promise.all((await contract.methods.getMineWithMetadata(account).call())
-      .map(async (nft) => {
-        console.log(nft)
-        // const u = nft[1].replace("ipfs://", "https://ipfs.io/ipfs/");
+    const totalSupply = await contract.methods.totalSupply().call();
+    const getBaseURICount = parseInt(await contract.methods.getBaseURICount().call());
 
-        // const ipfsBlob = await fetch(u)
-        //   .then(res => {
-        //     // console.error("mark1", res)
-        //     try {
-        //       return res.json()
-        //     } catch (e) {
-        //       return {};
-        //     }
+    const mine = await Promise.all(
 
-        //   })
-        //   .then(
-        //     (result) => {
-        //       return result
-        //     },
-        //     // Note: it's important to handle errors here
-        //     // instead of a catch() block so that we don't swallow
-        //     // exceptions from actual bugs in components.
-        //     (error) => {
-        //       console.error(error)
-        //     }
-        //   )
+      (await contract.methods.getMineWithMetadata(account).call())
+        .map(async (nft) => {
+          const u = nft[1].replace("ipfs://", "https://ipfs.io/ipfs/");
 
-        return {
-          // ...ipfsBlob,
-          /* @ts-ignore:next-line */
-          // httpImage: ipfsBlob.image.replace("ipfs://", "https://gateway.ipfscdn.io/ipfs/"),
-          id: nft[0],
-          tokenURI: nft[1],
-          redeemed: nft[2],
+          const ipfsBlob = await fetch(u)
+            .then(res => {
+              // console.error("mark1", res)
+              try {
+                return res.json()
+              } catch (e) {
+                return {};
+              }
+
+            })
+            .then(
+              (result) => {
+                return result
+              },
+              // Note: it's important to handle errors here
+              // instead of a catch() block so that we don't swallow
+              // exceptions from actual bugs in components.
+              (error) => {
+                console.error(error)
+              }
+            )
+
+          return {
+            // ...ipfsBlob,
+            /* @ts-ignore:next-line */
+            httpImage: ipfsBlob.image?.replace("ipfs://", "https://gateway.ipfscdn.io/ipfs/"),
+            id: nft[0],
+            tokenURI: nft[1],
+            redeemed: nft[2],
+          }
+        })
+
+    );
+
+
+    const theirs = await Promise.all(
+      (await contract.methods.getMineWithMetadata(configs.owner).call())
+        .map(async (nft) => {
+          return {
+            id: nft[0],
+            tokenURI: nft[1],
+            redeemed: nft[2],
+          }
+        })
+
+    );
+
+
+    // const claim = async () => {
+    //   const claimed = await contract.methods.claim(
+    //     account,
+    //     1,
+    //     "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    //     0,
+    //     { "proof": ["0x0000000000000000000000000000000000000000000000000000000000000000"], "maxQuantityInAllowlist": 0 },
+    //     "0x6162636400000000000000000000000000000000000000000000000000000000").send({ from: account });
+
+    //   // setLoadingState({ ...loadingState, claim });
+    //   loadNFTs();
+    // }
+
+    const redeemer = async (toRedeem) => {
+      const redeemed = await contract.methods.claim(loadingState.contract.methods.redeem(toRedeem).send({ from: loadingState.account }));
+
+      // setLoadingState({ mine, account, contract, claim, totalSupply, getBaseURICount, redeemed, redeemer });
+      setLoadingState({
+        ...loadingState, redeeming: {
+          ...(loadingState.redeeming || {}),
+          toRedeem: true
         }
+      });
+    }
 
-        // console.log("mark3", d);
 
-        // return d;
-      }));
-
-    console.log("mine", mine)
-
-    setLoadingState({ mine, account, contract });
+    setLoadingState({ mine, account, contract, totalSupply, getBaseURICount, redeemer, theirs });
 
 
   }
 
-  // async function redeem(nftId) {
-  //   const web3Modal = new Web3Modal()
-  //   const provider = await web3Modal.connect()
-  //   const web3 = new Web3(provider)
-  //   const contract = new web3.eth.Contract(ContractAbi.abi, configs.contractAddress);
-  //   const accounts = await web3.eth.getAccounts();
-  //   const redeemed = await contract.methods.redeem(nftId).send({ from: accounts[0] });
-  // }
+  const gapi: { auth2?: any } = useGoogleApi({
+    scopes: [
+      'profile',
+    ],
+  }) || { auth2: 'loading' }
 
-  // async function mint(text: string) {
-  //   const web3Modal = new Web3Modal()
-  //   const provider = await web3Modal.connect()
-  //   const web3 = new Web3(provider)
-  //   const contract = new web3.eth.Contract(ContractAbi.abi, configs.contractAddress);
-  //   const accounts = await web3.eth.getAccounts();
-  //   const mint = await contract.methods.mintTo(accounts[0], text).send({ from: accounts[0] });
-  //   console.log(mint)
-  // }
-
+  // const auth = gapi?.auth2.getAuthInstance();
+  console.log(gapi)
 
   return (<>
-    <header className=" py-5">
-      <div className="container px-4 px-lg-5 my-5">
-        <div className="row">
-          <div className="col"></div>
-          <div className="col">
-            <img src="images/indigiDAO.png" />
-          </div>
-          <div className="col"></div>
-        </div>
-
-      </div>
-    </header>
-
 
     <div className="container">
-      <h1> hello LiquidCollections</h1>
+      <h1> LiquidCollections X Chroma</h1>
       {/* <pre>{JSON.stringify(loadingState)}</pre> */}
+
+      {/* {
+        loadingState.theirs && <>
+          <h2>Unsold NFTs</h2>
+          <ul>
+            {
+              loadingState.theirs.map((m, ndx) => <li key={ndx}>
+                <pre>{JSON.stringify(m)}</pre>
+                <button>Buy me</button>
+              </li>)
+            }
+          </ul>
+        </>
+      } */}
+
       {
         loadingState.mine && <>
           <h2>mine</h2>
           <ul>
             {
-              loadingState.mine.map((m, ndx) => <li key={ndx}>
-                <pre>{JSON.stringify(m)}</pre>
+              loadingState.mine.map((m, ndx) => <li key={m.id}>
+                {/* <pre>{JSON.stringify(m)}</pre> */}
+
+                <img src={m.httpImage} width="100rem" />
+
                 {
-                  m.redeemed ? <pre>already redeemed!</pre> : <button onClick={(e) => loadingState.contract.methods.redeem(m.id).send({ from: loadingState.account })} >redeem</button>
+                  m.redeemed ?
+                    <>
+                      <p>This NFT is already redeemed. If you have not done so, please proceed to <a target="_blank" href={configs.stripeCheckoutLink}>the stripe payment page</a>.</p>
+
+                    </> :
+
+                    (
+
+                      (loadingState.inRedemption || {})[m.id]
+                        ?
+                        <p>please wait...</p>
+                        :
+                        <form onSubmit={async (event) => {
+                          event.preventDefault()
+
+                          const usersName = event.target.elements.name.value;
+                          const usersDateOfBirth = event.target.elements.dob.value;
+                          const usersState = event.target.elements.state.value;
+
+                          const userIsOfLegalAge = isOldEnough(usersDateOfBirth);
+                          const userIsInLegalState = isInState(usersState);
+
+                          console.log(usersName, usersDateOfBirth, usersState, userIsOfLegalAge, userIsInLegalState)
+
+                          if (userIsOfLegalAge && userIsInLegalState) {
+                            setLoadingState({
+                              ...loadingState,
+                              inRedemption: {
+                                [m.id]: true,
+                                ...loadingState.inRedemption,
+                              }
+                            });
+
+                            await loadingState.contract.methods.redeem(m.id).send({ from: loadingState.account });
+                            loadNFTs()
+
+                            window.open(configs.stripeCheckoutLink, '_blank');
+
+                            setLoadingState({
+                              ...loadingState,
+
+                              inRedemption: {
+                                [m.id]: false,
+                                ...loadingState.inRedemption,
+                              }
+                            });
+                          }
+
+                        }}>
+                          <label htmlFor="name">name</label>
+                          <input type="text" id="name" placeholder="your name" />
+
+                          <label htmlFor="dob">Your date of birth</label>
+                          <input type="date" id="dob" />
+
+                          <label htmlFor="state">Choose your state:</label>
+
+                          <select name="state" id="state">
+                            <option value=""></option>
+                            <option value="alabama">Alabama</option>
+                            <option value="alaska">Alaska</option>
+                            <option value="arizona">Arizona</option>
+                          </select>
+
+                          <input type="submit" value="Redeem" />
+
+                        </form>
+
+
+
+                    )
+
+
+                  // <button onClick={(e) => {
+                  //   loadingState.contract.methods.redeem(m.id).send({ from: loadingState.account });
+                  // }} >redeem</button>
                 }
 
               </li>)
             }
           </ul>
         </>
+      }
+
+      {
+        loadingState.claiming ? <>
+          <p>please wait while your claim is processing...</p>
+
+        </> : <>
+
+
+          <h2>Claim #{loadingState.totalSupply} of {loadingState.getBaseURICount + 1} </h2>
+
+
+          <button disabled={loadingState.totalSupply >= loadingState.getBaseURICount + 1} onClick={async (e) => {
+            setLoadingState({ ...loadingState, claiming: true });
+
+            await loadingState.contract.methods.claim(
+              loadingState.account,
+              1,
+              "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+              0,
+              { "proof": ["0x0000000000000000000000000000000000000000000000000000000000000000"], "maxQuantityInAllowlist": 0 },
+              "0x6162636400000000000000000000000000000000000000000000000000000000").send({ from: loadingState.account });
+
+
+
+            setLoadingState({ ...loadingState, claiming: false });
+            loadNFTs();
+
+          }} >claim</button>
+        </>
+
+
+
+
+
       }
 
 
@@ -149,5 +295,15 @@ const Index = (props: any) => {
 
 document.addEventListener("DOMContentLoaded", function (event) {
   const body = document.getElementsByTagName('body')
-  ReactDom.render(<Index />, body[0]);
+  ReactDom.render(
+
+    <Index />
+
+    //   <GoogleApiProvider
+    //   clientId={"304551797540-77jgoe5n49sqjbnofd1h9ctv488u93jv.apps.googleusercontent.com"}
+    //   children={<Index />}
+    // >
+    // </GoogleApiProvider>
+
+    , body[0]);
 });
