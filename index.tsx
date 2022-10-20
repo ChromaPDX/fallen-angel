@@ -5,6 +5,7 @@ import ReactDom from "react-dom";
 import { DateTime } from "luxon";
 import { GoogleApiProvider, useGoogleApi } from 'react-gapi'
 
+
 // var gapi = require('gapi');
 
 const ContractAbi = require("./artifacts/contracts/LiquidCollection.sol/LiquidCollection.json");
@@ -12,13 +13,13 @@ const configs = require("./config");
 
 const isInState = state => true
 
-const isOldEnough = date => true
-// DateTime.fromISO(date)
-//   .diffNow('years')
-//   .years < -21;
+const isOldEnough = date =>
+  DateTime.fromISO(date)
+    .diffNow('years')
+    .years < -21;
 
 const Index = (props: any) => {
-  const [loadingState, setLoadingState] = useState({ inRedemption: {} })
+  const [loadingState, setLoadingState] = useState<any>({ inRedemption: {} })
 
   useEffect(() => { loadNFTs() }, [])
 
@@ -41,6 +42,8 @@ const Index = (props: any) => {
 
       (await contract.methods.getMineWithMetadata(account).call())
         .map(async (nft) => {
+          console.log(nft);
+
           const u = nft[1].replace("ipfs://", "https://ipfs.io/ipfs/");
 
           const ipfsBlob = await fetch(u)
@@ -66,7 +69,7 @@ const Index = (props: any) => {
             )
 
           return {
-            // ...ipfsBlob,
+            ...ipfsBlob,
             /* @ts-ignore:next-line */
             httpImage: ipfsBlob.image?.replace("ipfs://", "https://gateway.ipfscdn.io/ipfs/"),
             id: nft[0],
@@ -134,7 +137,13 @@ const Index = (props: any) => {
   return (<>
 
     <div className="container">
-      <h1> LiquidCollections X Chroma</h1>
+      <header>
+        <h1> LiquidCollections X Chroma</h1>
+      </header>
+
+
+      <hr />
+
       {/* <pre>{JSON.stringify(loadingState)}</pre> */}
 
       {/* {
@@ -157,7 +166,7 @@ const Index = (props: any) => {
           <ul>
             {
               loadingState.mine.map((m, ndx) => <li key={m.id}>
-                {/* <pre>{JSON.stringify(m)}</pre> */}
+                <pre>{JSON.stringify(m)}</pre>
 
                 <img src={m.httpImage} width="100rem" />
 
@@ -177,8 +186,11 @@ const Index = (props: any) => {
                         <form onSubmit={async (event) => {
                           event.preventDefault()
 
+                          /* @ts-ignore:next-line */
                           const usersName = event.target.elements.name.value;
+                          /* @ts-ignore:next-line */
                           const usersDateOfBirth = event.target.elements.dob.value;
+                          /* @ts-ignore:next-line */
                           const usersState = event.target.elements.state.value;
 
                           const userIsOfLegalAge = isOldEnough(usersDateOfBirth);
@@ -186,7 +198,7 @@ const Index = (props: any) => {
 
                           console.log(usersName, usersDateOfBirth, usersState, userIsOfLegalAge, userIsInLegalState)
 
-                          if (userIsOfLegalAge && userIsInLegalState) {
+                          if (usersName && userIsOfLegalAge && userIsInLegalState) {
                             setLoadingState({
                               ...loadingState,
                               inRedemption: {
@@ -194,6 +206,27 @@ const Index = (props: any) => {
                                 ...loadingState.inRedemption,
                               }
                             });
+
+                            // var formBody = new FormData();
+                            // formBody.set("entry.1832620337", usersName);
+                            // formBody.set("entry.835369520", usersState);
+                            // formBody.set("entry.1445715173_year", "0");
+                            // formBody.set("entry.1445715173_month", "0");
+                            // formBody.set("entry.1445715173_day", "0");
+
+                            // await fetch("https://docs.google.com/forms/u/0/d/e/1FAIpQLSddvCg79SEXdxDQt6mbE67MqLdk1FB5Mg2_ZVHwPP7akjF4uQ/formResponse", {
+                            //   method: "POST",
+                            //   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            //   mode: 'no-cors',
+                            //   body: formBody,
+                            //   // body: JSON.stringify({
+                            //   //   "entry.1832620337": "test",
+                            //   //   "entry.835369520": "test",
+                            //   //   "entry.1445715173_year": "2022",
+                            //   //   "entry.1445715173_month": "10",
+                            //   //   "entry.1445715173_day": "2"
+                            //   // })
+                            // })
 
                             await loadingState.contract.methods.redeem(m.id).send({ from: loadingState.account });
                             loadNFTs()
@@ -208,6 +241,8 @@ const Index = (props: any) => {
                                 ...loadingState.inRedemption,
                               }
                             });
+                          } else {
+                            alert("You must be 21 years of age and residing in a legal state.")
                           }
 
                         }}>
@@ -230,14 +265,8 @@ const Index = (props: any) => {
 
                         </form>
 
-
-
                     )
 
-
-                  // <button onClick={(e) => {
-                  //   loadingState.contract.methods.redeem(m.id).send({ from: loadingState.account });
-                  // }} >redeem</button>
                 }
 
               </li>)
@@ -246,6 +275,8 @@ const Index = (props: any) => {
         </>
       }
 
+      <hr />
+
       {
         loadingState.claiming ? <>
           <p>please wait while your claim is processing...</p>
@@ -253,7 +284,7 @@ const Index = (props: any) => {
         </> : <>
 
 
-          <h2>Claim #{loadingState.totalSupply} of {loadingState.getBaseURICount + 1} </h2>
+          <h2>Mint #{loadingState.totalSupply} of {loadingState.getBaseURICount + 1} </h2>
 
 
           <button disabled={loadingState.totalSupply >= loadingState.getBaseURICount + 1} onClick={async (e) => {
@@ -272,7 +303,7 @@ const Index = (props: any) => {
             setLoadingState({ ...loadingState, claiming: false });
             loadNFTs();
 
-          }} >claim</button>
+          }} >mint</button>
         </>
 
 
@@ -284,9 +315,10 @@ const Index = (props: any) => {
 
     </div>
 
-    <footer className="py-5 bg-dark">
-      <div className="container">
-        <p className="m-0 text-center text-white">Made with ❤️ by Chroma</p></div>
+    <hr />
+
+    <footer >
+      <p >Made with ❤️ by Chroma</p>
     </footer>
 
   </>);

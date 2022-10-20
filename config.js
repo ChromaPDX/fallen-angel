@@ -1,3 +1,5 @@
 module.exports = {
-  contractAddress: "0xaF6CC875E116003E751E792B73d8E0FCaAE35aD2"
+  contractAddress: "0xeF213cbF389e2FCC4205889CFCed1bDe65f80086",
+  owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
+  stripeCheckoutLink: "https://buy.stripe.com/5kA8xs4Tp4SkehafYY"
 }

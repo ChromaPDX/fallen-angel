@@ -1,13 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.11;
 
-// import {ERC721A} from "@thirdweb-dev/contracts/eip/ERC721A.sol";
-// import "@thirdweb-dev/contracts/drop/DropERC721.sol";
 import "@thirdweb-dev/contracts/base/ERC721Drop.sol";
 import "@thirdweb-dev/contracts/eip/interface/IERC721Enumerable.sol";
-
-// import "@thirdweb-dev/contracts/token/TokenERC721.sol";
-// import "@thirdweb-dev/contracts/base/ERC721SignatureMint.sol";
 
 contract LiquidCollection is ERC721Drop, IERC721Enumerable {
     constructor(
@@ -31,22 +26,22 @@ contract LiquidCollection is ERC721Drop, IERC721Enumerable {
     event Redeem(address indexed from, uint256 indexed tokenId);
 
     function isRedeemable(uint256 tokenId) public view virtual returns (bool) {
-        // require(
-        //     _exists(tokenId),
-        //     "LiquidCollection: Redeem query for nonexistent token"
-        // );
+        require(
+            _exists(tokenId),
+            "LiquidCollection: Redeem query for nonexistent token"
+        );
         return !redeemed[tokenId];
     }
 
     function redeem(uint256 tokenId) public virtual {
-        // require(
-        //     _exists(tokenId),
-        //     "LiquidCollection: Redeem query for nonexistent token"
-        // );
-        // require(
-        //     ownerOf(tokenId) == msg.sender,
-        //     "LiquidCollection: You are not the owner of this token"
-        // );
+        require(
+            _exists(tokenId),
+            "LiquidCollection: Redeem query for nonexistent token"
+        );
+        require(
+            ownerOf(tokenId) == msg.sender,
+            "LiquidCollection: You are not the owner of this token"
+        );
         redeemed[tokenId] = true;
         emit Redeem(msg.sender, tokenId);
     }
@@ -73,58 +68,12 @@ contract LiquidCollection is ERC721Drop, IERC721Enumerable {
             _metadatasOfOwners[i] = Redeemey({
                 id: tUid,
                 redeemed: redeemed[tUid],
-                tokenURI: ERC721A.tokenURI(tUid)
+                tokenURI: tokenURI(tUid)
             });
         }
 
         return (_metadatasOfOwners);
     }
-
-    // struct NonRedeemey {
-    //     uint256 id;
-    //     string tokenURI;
-    // }
-
-    // function getMineWithRedeemies() public view returns (Redeemey[] memory) {
-    //     address _owner = msg.sender;
-    //     uint256 lngth = ERC721A.balanceOf(_owner);
-    //     Redeemey[] memory _metadatasOfOwners = new Redeemey[](lngth);
-
-    //     uint256 i;
-    //     for (i = 0; i < lngth; i++) {
-    //         uint256 tUid = tokenOfOwnerByIndex(_owner, i);
-
-    //         _metadatasOfOwners[i] = Redeemey({
-    //             id: tUid,
-    //             redeemed: redeemable,
-    //             tokenURI: ERC721Drop.tokenURI(tUid)
-    //         });
-    //     }
-
-    //     return (_metadatasOfOwners);
-    // }
-
-    // function getOthersWithoutRedeemies()
-    //     public
-    //     view
-    //     returns (NonRedeemey[] memory)
-    // {
-    //     address _owner = address(this);
-    //     uint256 lngth = ERC721A.balanceOf(_owner);
-    //     NonRedeemey[] memory _metadatasOfOwners = new NonRedeemey[](lngth);
-
-    //     uint256 i;
-    //     for (i = 0; i < lngth; i++) {
-    //         uint256 tUid = tokenOfOwnerByIndex(_owner, i);
-
-    //         _metadatasOfOwners[i] = NonRedeemey({
-    //             id: tUid,
-    //             tokenURI: ERC721A.tokenURI(tUid)
-    //         });
-    //     }
-
-    //     return (_metadatasOfOwners);
-    // }
 
     // Mapping from owner to list of owned token IDs
     mapping(address => mapping(uint256 => uint256)) private _ownedTokens;
