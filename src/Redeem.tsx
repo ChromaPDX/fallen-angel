@@ -1,12 +1,6 @@
-import React, { ReactNode, useEffect, useState } from "react";
-import ReactDom from "react-dom";
+import React, { useEffect, useState } from "react";
 import { DateTime } from "luxon";
-import type { ConfigOptions } from '@web3modal/react'
-import { ConnectButton, useConnectModal, Web3Modal, useAccount, useContract, useProvider } from '@web3modal/react'
-import { chains } from "@web3modal/ethereum"
-// var gapi = require('gapi');
-
-const ContractAbi = require("../artifacts/contracts/LiquidCollection.sol/LiquidCollection.json");
+import AppFrame from "./AppFrame";
 const configs = require("../config");
 
 const isInState = state => true
@@ -16,27 +10,12 @@ const isOldEnough = date =>
     .diffNow('years')
     .years < -21;
 
-const config: ConfigOptions = {
-  projectId: '4453e71d0a916ce17f7a6105696bdc0a',
-  theme: 'dark',
-  accentColor: 'default',
-  ethereum: {
-    appName: 'web3Modal',
-    chains: [chains.goerli]
-  }
-}
-
-function Checkout(props: { contract, provider, address }) {
+export function Redeem(props: { contract, provider, address }) {
   const { contract, provider, address } = props;
-  console.log(contract, provider, address);
   const [loadingState, setLoadingState] = useState<any>({})
-  useEffect(() => { loadNFTs() }, []);
+  useEffect(() => { refreshWeb3() }, []);
 
-  async function loadNFTs() {
-    const totalSupply = (await contract.totalSupply()).toNumber();
-
-    const getBaseURICount = parseInt(await contract.getBaseURICount());
-
+  async function refreshWeb3() {
     const mine = await Promise.all(
 
       (await contract.getMineWithMetadata(address))
@@ -77,36 +56,8 @@ function Checkout(props: { contract, provider, address }) {
         })
     );
 
-    const theirs = await Promise.all(
-      (await contract.getMineWithMetadata(configs.owner))
-        .map(async (nft) => {
-          return {
-            id: nft[0],
-            tokenURI: nft[1],
-            redeemed: nft[2],
-          }
-        })
-
-    );
-
-
-    // const claim = async () => {
-    //   const claimed = await contract.claim(
-    //     account,
-    //     1,
-    //     "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-    //     0,
-    //     { "proof": ["0x0000000000000000000000000000000000000000000000000000000000000000"], "maxQuantityInAllowlist": 0 },
-    //     "0x6162636400000000000000000000000000000000000000000000000000000000").send({ from: account });
-
-    //   // setLoadingState({ ...loadingState, claim });
-    //   loadNFTs();
-    // }
-
     const redeemer = async (toRedeem) => {
-      const redeemed = await contract.claim(loadingState.contract.redeem(toRedeem).send({ from: loadingState.address }));
-
-      // setLoadingState({ mine, account, contract, claim, totalSupply, getBaseURICount, redeemed, redeemer });
+      await contract.claim(loadingState.contract.redeem(toRedeem).send({ from: loadingState.address }));
       setLoadingState({
         ...loadingState, redeeming: {
           ...(loadingState.redeeming || {}),
@@ -114,8 +65,7 @@ function Checkout(props: { contract, provider, address }) {
         }
       });
     }
-
-    setLoadingState({ mine, address, contract, totalSupply, getBaseURICount, redeemer, theirs });
+    setLoadingState({ mine, address, contract, redeemer });
   }
 
   return (<>
@@ -191,7 +141,7 @@ function Checkout(props: { contract, provider, address }) {
                             // })
 
                             await loadingState.contract.methods.redeem(m.id).send({ from: loadingState.account });
-                            loadNFTs()
+                            refreshWeb3()
 
                             window.open(configs.stripeCheckoutLink, '_blank');
 
@@ -234,42 +184,14 @@ function Checkout(props: { contract, provider, address }) {
         </>
       }
     </div>
-
   </>);
-}
-
-type AppProps = {
-  children: (contract, provider, address) => React.ReactNode;
-};
-
-function AppFrame(props: AppProps) {
-  const { address, isConnected } = useAccount();
-  const provider = useProvider()
-  const contract = useContract({
-    addressOrName: configs.contractAddress,
-    contractInterface: ContractAbi.abi,
-    signerOrProvider: provider
-  });
-
-  return (
-    <>
-      <Web3Modal config={config} />
-      <ConnectButton />
-      {
-        contract && address && provider ?
-          props.children(contract, provider, address)
-          :
-          <pre>loading...</pre>
-      }
-    </>
-  )
 }
 
 export default (props: any) => {
   return (<>
     <AppFrame >
       {
-        (contract, provider, address): React.ReactNode => <Checkout contract={contract} provider={provider} address={address} />
+        (contract, provider, address): React.ReactNode => <Redeem contract={contract} provider={provider} address={address} />
       }
     </AppFrame>
   </>);

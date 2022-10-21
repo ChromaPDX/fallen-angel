@@ -10,7 +10,7 @@ const ADDRESS = process.argv[6];
 console.log("building project for contract @", ADDRESS);
 
 const config = {
-  entry: "./src/redeem.ts",
+  entry: "./src/Redeem.js",
   output: {
     filename: 'redeem.bundle.js',
   },

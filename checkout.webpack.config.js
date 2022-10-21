@@ -8,7 +8,7 @@ const isProduction = process.env.NODE_ENV == "production";
 const stylesHandler = "style-loader";
 
 const config = {
-  entry: "./src/checkout.ts",
+  entry: "./src/Checkout.tsx",
   output: {
     // path: path.resolve(__dirname, "dist"),
     filename: 'checkout.bundle.js',

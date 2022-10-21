@@ -10,7 +10,7 @@
     "resolveJsonModule": true
   },
   "files": [
-    "src/checkout.ts",
-    "src/redeem.ts",
+    "src/Checkout.tsx",
+    "src/Redeem.tsx",
   ]
 }
