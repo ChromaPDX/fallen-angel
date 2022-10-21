@@ -18,9 +18,5 @@ const App = (props: any) => {
   </>);
 };
 
-document.addEventListener("DOMContentLoaded", function (event) {
-  const body = document.getElementsByTagName('body')
-  ReactDom.render(
-    <App />
-    , body[0]);
-});
+document.addEventListener("DOMContentLoaded", (event) =>
+  ReactDom.render(<App />, document.getElementById('root')));

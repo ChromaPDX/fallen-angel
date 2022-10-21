@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { DateTime } from "luxon";
+
 import AppFrame from "./AppFrame";
+
 const configs = require("../config");
 
 const isInState = state => true
@@ -20,8 +22,6 @@ export function Redeem(props: { contract, provider, address }) {
 
       (await contract.getMineWithMetadata(address))
         .map(async (nft) => {
-          console.log(nft);
-
           const u = nft[1].replace("ipfs://", "https://ipfs.io/ipfs/");
 
           const ipfsBlob = await fetch(u)
@@ -69,9 +69,7 @@ export function Redeem(props: { contract, provider, address }) {
   }
 
   return (<>
-
     <div className="container">
-
       {
         loadingState.mine && <>
           <h2>mine</h2>
@@ -79,18 +77,13 @@ export function Redeem(props: { contract, provider, address }) {
             {
               loadingState.mine.map((m, ndx) => <li key={m.id}>
                 <pre>{JSON.stringify(m)}</pre>
-
                 <img src={m.httpImage} width="100rem" />
-
                 {
                   m.redeemed ?
                     <>
                       <p>This NFT is already redeemed. If you have not done so, please proceed to <a target="_blank" href={configs.stripeCheckoutLink}>the stripe payment page</a>.</p>
-
                     </> :
-
                     (
-
                       (loadingState.inRedemption || {})[m.id]
                         ?
                         <p>please wait...</p>
@@ -107,8 +100,6 @@ export function Redeem(props: { contract, provider, address }) {
 
                           const userIsOfLegalAge = isOldEnough(usersDateOfBirth);
                           const userIsInLegalState = isInState(usersState);
-
-                          console.log(usersName, usersDateOfBirth, usersState, userIsOfLegalAge, userIsInLegalState)
 
                           if (usersName && userIsOfLegalAge && userIsInLegalState) {
                             setLoadingState({
@@ -140,7 +131,7 @@ export function Redeem(props: { contract, provider, address }) {
                             //   // })
                             // })
 
-                            await loadingState.contract.methods.redeem(m.id).send({ from: loadingState.account });
+                            await loadingState.contract.redeem(m.id).send({ from: loadingState.account });
                             refreshWeb3()
 
                             window.open(configs.stripeCheckoutLink, '_blank');

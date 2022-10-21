@@ -2,7 +2,6 @@
 pragma solidity ^0.8.11;
 
 import "@thirdweb-dev/contracts/base/ERC721Drop.sol";
-
 import "@thirdweb-dev/contracts/eip/interface/IERC721Enumerable.sol";
 
 contract LiquidCollection is ERC721Drop, IERC721Enumerable {
