@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import AppFrame from "./AppFrame";
 
-export function Checkout(props: { contract, provider, address }) {
-  const { contract, provider, address } = props;
+export function Checkout(props: { contract, signer, address }) {
+  const { contract, signer, address } = props;
   const [loadingState, setLoadingState] = useState<any>({})
   useEffect(() => { refreshWeb3() }, []);
 
@@ -41,7 +41,7 @@ export default (props: any) => {
   return (<>
     <AppFrame >
       {
-        (contract, provider, address): React.ReactNode => <Checkout contract={contract} provider={provider} address={address} />
+        (contract, signer, address): React.ReactNode => <Checkout contract={contract} signer={signer} address={address} />
       }
     </AppFrame>
   </>);

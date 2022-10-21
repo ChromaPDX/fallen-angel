@@ -12,8 +12,8 @@ const isOldEnough = date =>
     .diffNow('years')
     .years < -21;
 
-export function Redeem(props: { contract, provider, address }) {
-  const { contract, provider, address } = props;
+export function Redeem(props: { contract, signer, address }) {
+  const { contract, signer, address } = props;
   const [loadingState, setLoadingState] = useState<any>({})
   useEffect(() => { refreshWeb3() }, []);
 
@@ -182,7 +182,7 @@ export default (props: any) => {
   return (<>
     <AppFrame >
       {
-        (contract, provider, address): React.ReactNode => <Redeem contract={contract} provider={provider} address={address} />
+        (contract, signer, address): React.ReactNode => <Redeem contract={contract} signer={signer} address={address} />
       }
     </AppFrame>
   </>);

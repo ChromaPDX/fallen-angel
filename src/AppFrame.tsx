@@ -1,6 +1,6 @@
 import React from "react";
 import type { ConfigOptions } from '@web3modal/react'
-import { ConnectButton, Web3Modal, useAccount, useContract, useProvider } from '@web3modal/react'
+import { ConnectButton, Web3Modal, useAccount, useContract, useSigner, useProvider } from '@web3modal/react'
 import { chains } from "@web3modal/ethereum"
 
 const ContractAbi = require("../artifacts/contracts/LiquidCollection.sol/LiquidCollection.json");
@@ -11,22 +11,28 @@ const config: ConfigOptions = {
   theme: 'dark',
   accentColor: 'default',
   ethereum: {
-    appName: 'web3Modal',
+    appName: 'Liquid Collections',
     chains: [chains.goerli]
   }
 }
 
 type AppProps = {
-  children: (contract, provider, address) => React.ReactNode;
+  children: (contract, signer, address) => React.ReactNode;
 };
 
 export default (props: AppProps) => {
   const { address, isConnected } = useAccount();
-  const provider = useProvider()
-  const contract = useContract({
+  const signer = useSigner()
+  // const provider = useProvider()
+
+  console.log("signer", signer);
+  // console.log("provider", provider);
+
+  let contract;
+  contract = useContract({
     addressOrName: configs.contractAddress,
     contractInterface: ContractAbi.abi,
-    signerOrProvider: provider
+    signerOrProvider: signer.data
   });
 
   return (
@@ -34,8 +40,9 @@ export default (props: AppProps) => {
       <Web3Modal config={config} />
       <ConnectButton />
       {
-        contract && address && provider ?
-          props.children(contract, provider, address)
+        contract && address && signer
+          ?
+          props.children(contract, signer, address)
           :
           <pre>loading...</pre>
       }
