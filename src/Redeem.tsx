@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { DateTime } from "luxon";
 
 import AppFrame from "./AppFrame";
+import { useContractEvent } from "wagmi";
 
+const ContractAbi = require("../artifacts/contracts/LiquidCollection.sol/LiquidCollection.json");
 const configs = require("../config");
 
 const isInState = state => true
@@ -14,6 +16,11 @@ const isOldEnough = date =>
 
 export function Redeem(props: { contract, signer, address }) {
   const { contract, signer, address } = props;
+  const contractBase = {
+    address: contract.address,
+    abi: ContractAbi.abi,
+  };
+
   const [loadingState, setLoadingState] = useState<any>({})
   useEffect(() => { refreshWeb3() }, []);
 
@@ -68,6 +75,19 @@ export function Redeem(props: { contract, signer, address }) {
     setLoadingState({ mine, address, contract, redeemer });
   }
 
+  useContractEvent({
+    ...contractBase,
+    eventName: 'TokensClaimed',
+    /* @ts-ignore:next-line */
+    listener: (claimer, receiver, idClaimed, numberClaimed) => {
+      // console.log('TokensClaimed', claimer, receiver, idClaimed, numberClaimed)
+      /* @ts-ignore:next-line */
+      if (receiver === address) {
+        refreshWeb3()
+      }
+    },
+  });
+
   return (<>
     <div className="container">
       {
@@ -81,7 +101,10 @@ export function Redeem(props: { contract, signer, address }) {
                 {
                   m.redeemed ?
                     <>
-                      <p>This NFT is already redeemed. If you have not done so, please proceed to <a target="_blank" href={configs.stripeCheckoutLink}>the stripe payment page</a>.</p>
+                      <p>
+                        This NFT is already redeemed. If you have not done so, please proceed to
+                        <a target="_blank" href={configs.stripeCheckoutLink}>the stripe payment page</a>.
+                      </p>
                     </> :
                     (
                       (loadingState.inRedemption || {})[m.id]
