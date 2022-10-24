@@ -154,7 +154,7 @@ export function Redeem(props: { contract, signer, address }) {
                             //   // })
                             // })
 
-                            await loadingState.contract.redeem(m.id).send({ from: loadingState.account });
+                            await loadingState.contract.redeem(m.id); //.send({ from: loadingState.account });
                             refreshWeb3()
 
                             window.open(configs.stripeCheckoutLink, '_blank');

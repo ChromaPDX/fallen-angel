@@ -17,3 +17,9 @@ yarn dev:redeem SOME_ADDRESS
 ```
 ### Redeem.bundle.js can be used as an exportable artifact
 
+## Todo
+- paper checkout
+- upload real NFTs on mainnet
+- switch from goerli to mainnet
+- bump alchemy limits
+- on redeem, update image
