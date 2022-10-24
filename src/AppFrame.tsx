@@ -10,12 +10,13 @@ import {
   ConnectButton
 } from "@rainbow-me/rainbowkit";
 
+import configs from "../config";
+
 const ContractAbi = require("../artifacts/contracts/LiquidCollection.sol/LiquidCollection.json");
-const configs = require("../config");
 
 const { chains, provider } = configureChains(
-  [chain.goerli],
-  [alchemyProvider({ apiKey: "eyqcNlbFCbqqoujYNx38SN8noh1V_DC1" }), publicProvider()]
+  [configs.chain],
+  [alchemyProvider({ apiKey: configs.alchemyKey }), publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({

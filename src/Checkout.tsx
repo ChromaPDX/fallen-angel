@@ -47,7 +47,7 @@ export function Checkout(props: { contract, signer, address }) {
     eventName: 'TokensClaimed',
     /* @ts-ignore:next-line */
     listener: (claimer, receiver, idClaimed, numberClaimed) => {
-      // console.log('TokensClaimed', claimer, receiver, idClaimed, numberClaimed)
+      console.log('TokensClaimed', claimer, receiver, idClaimed, numberClaimed)
       /* @ts-ignore:next-line */
       const deltaMinusTokensClaimed = BigNumber.from(numberClaimed._hex).toNumber();
       const totalSupply = loadingState.totalSupply - deltaMinusTokensClaimed;
@@ -60,7 +60,7 @@ export function Checkout(props: { contract, signer, address }) {
     eventName: 'TokensLazyMinted',
     /* @ts-ignore:next-line */
     listener: (startTokenId, endTokenId, baseURI, encryptedBaseURI, tsx) => {
-      // console.log('TokensLazyMinted', startTokenId, endTokenId, baseURI, encryptedBaseURI)
+      console.log('TokensLazyMinted', startTokenId, endTokenId, baseURI, encryptedBaseURI)
       /* @ts-ignore:next-line */
       const end = BigNumber.from(endTokenId._hex).toNumber();
       /* @ts-ignore:next-line */

@@ -80,7 +80,7 @@ export function Redeem(props: { contract, signer, address }) {
     eventName: 'TokensClaimed',
     /* @ts-ignore:next-line */
     listener: (claimer, receiver, idClaimed, numberClaimed) => {
-      // console.log('TokensClaimed', claimer, receiver, idClaimed, numberClaimed)
+      console.log('TokensClaimed', claimer, receiver, idClaimed, numberClaimed)
       /* @ts-ignore:next-line */
       if (receiver === address) {
         refreshWeb3()

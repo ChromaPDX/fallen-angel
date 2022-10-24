@@ -23,3 +23,6 @@ yarn dev:redeem SOME_ADDRESS
 - switch from goerli to mainnet
 - bump alchemy limits
 - on redeem, update image
+- attach heymint VIP list to claim conditions
+- finalize stripe
+- testing!
