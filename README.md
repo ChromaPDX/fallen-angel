@@ -1,6 +1,5 @@
 # Liquid Collection X Chroma NFT
 
-
 ## TL;DR
 ### Build contracts
 ```
@@ -18,11 +17,10 @@ yarn dev:redeem SOME_ADDRESS
 ### Redeem.bundle.js can be used as an exportable artifact
 
 ## Todo
-- paper checkout
+- attach heymint VIP list to claim conditions
+- customize paper checkout
 - upload real NFTs on mainnet
-- switch from goerli to mainnet
 - bump alchemy limits
 - on redeem, update image
-- attach heymint VIP list to claim conditions
-- finalize stripe
+- finalize stripe for redeem
 - testing!

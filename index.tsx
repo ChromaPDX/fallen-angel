@@ -12,6 +12,7 @@ const SignerTest = (props: any) => {
     {
       (contract, signer, address): React.ReactNode => <>
         <Checkout contract={contract} signer={signer} address={address} />
+        <hr />
         <Redeem contract={contract} signer={signer} address={address} />
       </>
     }
