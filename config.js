@@ -5,7 +5,7 @@ module.exports = {
 
   owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
 
-  paperCheckoutLink: "https://paper.xyz/checkout/05fd9d05-afe9-4b71-85c2-4f5fc9e597c7",
+  paperCheckoutLink: "https://paper.xyz/checkout/5fa7c655-9009-45b1-aa36-83070d98b245",
 
   allowListProof: [
     '0x97533c02110e6573027c4c00710b22618e3b039a5a99f419e86c29e537c4b59c',
