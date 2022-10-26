@@ -7,7 +7,7 @@ import configs from "../config";
 
 import AppFrame from "./AppFrame";
 
-const ContractAbi = require("../artifacts/contracts/LiquidCollection.sol/LiquidCollection.json");
+const ContractAbi = require("../artifacts/contracts/LiquidCollections.sol/LiquidCollections.json");
 
 export function Checkout(props: { contract, signer, address }) {
   const { contract, signer, address } = props;
@@ -23,11 +23,13 @@ export function Checkout(props: { contract, signer, address }) {
   }, []);
 
   async function initWeb3() {
-    const totalSupply = (await contract.totalSupply()).toNumber();
+    const nextTokenIdToMint = parseInt(await contract.nextTokenIdToMint());
     const nextTokenIdToClaim = parseInt(await contract.nextTokenIdToClaim());
-    setLoadingState({ totalSupply, nextTokenIdToClaim });
+    setLoadingState({ nextTokenIdToMint, nextTokenIdToClaim });
   }
 
+  const proof = { "proof": configs.allowListProof, "maxQuantityInAllowlist": 0 };
+  console.log(JSON.stringify(proof))
   const { config, error } = usePrepareContractWrite({
     ...contractBase,
     functionName: 'claim',
@@ -37,7 +39,7 @@ export function Checkout(props: { contract, signer, address }) {
       1,
       "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
       0,
-      { "proof": ["0x97533c02110e6573027c4c00710b22618e3b039a5a99f419e86c29e537c4b59c"], "maxQuantityInAllowlist": 0 },
+      proof,
       "0x6162636400000000000000000000000000000000000000000000000000000000"
     ],
   })
@@ -52,8 +54,8 @@ export function Checkout(props: { contract, signer, address }) {
       console.log('TokensClaimed', claimer, receiver, idClaimed, numberClaimed)
       /* @ts-ignore:next-line */
       const deltaMinusTokensClaimed = BigNumber.from(numberClaimed._hex).toNumber();
-      const totalSupply = loadingState.totalSupply - deltaMinusTokensClaimed;
-      setLoadingState({ ...loadingState, totalSupply });
+      const nextTokenIdToMint = loadingState.nextTokenIdToMint - deltaMinusTokensClaimed;
+      setLoadingState({ ...loadingState, nextTokenIdToMint });
     },
   });
 
@@ -68,18 +70,18 @@ export function Checkout(props: { contract, signer, address }) {
       /* @ts-ignore:next-line */
       const start = BigNumber.from(startTokenId._hex).toNumber();
 
-      setLoadingState({ ...loadingState, totalSupply: loadingState.totalSupply + (end - start) });
+      setLoadingState({ ...loadingState, nextTokenIdToMint: loadingState.nextTokenIdToMint + (end - start) });
     },
   });
 
 
-  const cantMint = loadingState.nextTokenIdToClaim > loadingState.totalSupply
-  console.log(loadingState.totalSupply, loadingState.nextTokenIdToClaim)
+  const cantMint = loadingState.nextTokenIdToClaim > loadingState.nextTokenIdToMint
+  console.log(loadingState.nextTokenIdToMint, loadingState.nextTokenIdToClaim)
 
   return (<>
     <div className="container">
 
-      <h2>Mint #{loadingState.nextTokenIdToClaim} of {loadingState.totalSupply} </h2>
+      <h2>Mint #{loadingState.nextTokenIdToClaim} of {loadingState.nextTokenIdToMint} </h2>
 
       <h3>Fancy claim</h3>
       {

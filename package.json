@@ -18,6 +18,7 @@
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
     "css-loader": "^6.7.1",
+    "csvtojson": "^2.0.10",
     "ethers": "^5.7.2",
     "fs": "^0.0.1-security",
     "gapi": "^0.0.3",
@@ -56,7 +57,7 @@
     "web2:dev": "yarn webpack serve",
     "web3:build": "npx thirdweb@latest detect",
     "web3:deploy": "npx thirdweb@latest deploy",
-    "solc:compile": "solc ./contracts/LiquidCollection.sol",
-    "storybook": "start-storybook -p 6006"
+    "solc:compile": "solc ./contracts/LiquidCollections.sol",
+    "allowlistproof": "node allowlistproof.js"
   }
 }

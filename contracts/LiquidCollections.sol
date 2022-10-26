@@ -5,7 +5,7 @@ import "@thirdweb-dev/contracts/base/ERC721Drop.sol";
 import "@thirdweb-dev/contracts/eip/interface/IERC721Enumerable.sol";
 import "@thirdweb-dev/contracts/extension/Drop.sol";
 
-contract LiquidCollection is IERC721Enumerable, ERC721Drop {
+contract LiquidCollections is IERC721Enumerable, ERC721Drop {
     constructor(
         string memory _name,
         string memory _symbol,
@@ -22,59 +22,59 @@ contract LiquidCollection is IERC721Enumerable, ERC721Drop {
         )
     {}
 
-    // copy-pasted from DropSinglePhase.sol
-    function canClaim(
-        address _receiver,
-        uint256 _quantity,
-        address _currency,
-        uint256 _pricePerToken,
-        AllowlistProof calldata _allowlistProof,
-        bytes memory _data
-    ) public view {
-        _beforeClaim(
-            _receiver,
-            _quantity,
-            _currency,
-            _pricePerToken,
-            _allowlistProof,
-            _data
-        );
+    // // copy-pasted from DropSinglePhase.sol
+    // function canClaim(
+    //     address _receiver,
+    //     uint256 _quantity,
+    //     address _currency,
+    //     uint256 _pricePerToken,
+    //     AllowlistProof calldata _allowlistProof,
+    //     bytes memory _data
+    // ) public view {
+    //     _beforeClaim(
+    //         _receiver,
+    //         _quantity,
+    //         _currency,
+    //         _pricePerToken,
+    //         _allowlistProof,
+    //         _data
+    //     );
 
-        // bytes32 activeConditionId = conditionId;
+    //     // bytes32 activeConditionId = conditionId;
 
-        /**
-         *  We make allowlist checks (i.e. verifyClaimMerkleProof) before verifying the claim's general
-         *  validity (i.e. verifyClaim) because we give precedence to the check of allow list quantity
-         *  restriction over the check of the general claim condition's quantityLimitPerTransaction
-         *  restriction.
-         */
+    //     /**
+    //      *  We make allowlist checks (i.e. verifyClaimMerkleProof) before verifying the claim's general
+    //      *  validity (i.e. verifyClaim) because we give precedence to the check of allow list quantity
+    //      *  restriction over the check of the general claim condition's quantityLimitPerTransaction
+    //      *  restriction.
+    //      */
 
-        // Verify inclusion in allowlist.
-        (
-            bool validMerkleProof,
-            uint256 merkleProofIndex
-        ) = verifyClaimMerkleProof(
-                _dropMsgSender(),
-                _quantity,
-                _allowlistProof
-            );
+    //     // Verify inclusion in allowlist.
+    //     (
+    //         bool validMerkleProof,
+    //         uint256 merkleProofIndex
+    //     ) = verifyClaimMerkleProof(
+    //             _dropMsgSender(),
+    //             _quantity,
+    //             _allowlistProof
+    //         );
 
-        // Verify claim validity. If not valid, revert.
-        // when there's allowlist present --> verifyClaimMerkleProof will verify the maxQuantityInAllowlist value with hashed leaf in the allowlist
-        // when there's no allowlist, this check is true --> verifyClaim will check for _quantity being equal/less than the limit
-        bool toVerifyMaxQuantityPerTransaction = _allowlistProof
-            .maxQuantityInAllowlist ==
-            0 ||
-            claimCondition.merkleRoot == bytes32(0);
+    //     // Verify claim validity. If not valid, revert.
+    //     // when there's allowlist present --> verifyClaimMerkleProof will verify the maxQuantityInAllowlist value with hashed leaf in the allowlist
+    //     // when there's no allowlist, this check is true --> verifyClaim will check for _quantity being equal/less than the limit
+    //     bool toVerifyMaxQuantityPerTransaction = _allowlistProof
+    //         .maxQuantityInAllowlist ==
+    //         0 ||
+    //         claimCondition.merkleRoot == bytes32(0);
 
-        verifyClaim(
-            _dropMsgSender(),
-            _quantity,
-            _currency,
-            _pricePerToken,
-            toVerifyMaxQuantityPerTransaction
-        );
-    }
+    //     verifyClaim(
+    //         _dropMsgSender(),
+    //         _quantity,
+    //         _currency,
+    //         _pricePerToken,
+    //         toVerifyMaxQuantityPerTransaction
+    //     );
+    // }
 
     /////////////////////
     // redemption
@@ -86,7 +86,7 @@ contract LiquidCollection is IERC721Enumerable, ERC721Drop {
     function isRedeemable(uint256 tokenId) public view virtual returns (bool) {
         require(
             _exists(tokenId),
-            "LiquidCollection: Redeem query for nonexistent token"
+            "LiquidCollections: Redeem query for nonexistent token"
         );
         return !redeemed[tokenId];
     }
@@ -94,11 +94,11 @@ contract LiquidCollection is IERC721Enumerable, ERC721Drop {
     function redeem(uint256 tokenId) public virtual {
         require(
             _exists(tokenId),
-            "LiquidCollection: Redeem query for nonexistent token"
+            "LiquidCollections: Redeem query for nonexistent token"
         );
         require(
             ownerOf(tokenId) == msg.sender,
-            "LiquidCollection: You are not the owner of this token"
+            "LiquidCollections: You are not the owner of this token"
         );
         redeemed[tokenId] = true;
         emit Redeem(msg.sender, tokenId);

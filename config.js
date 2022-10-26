@@ -1,16 +1,24 @@
-import { chain } from "wagmi";
+const chain = require("wagmi").chain;
 
-export default {
-  // contractAddress: "0xeF213cbF389e2FCC4205889CFCed1bDe65f80086",
-  contractAddress: "0x71eD799fB9680449E07076D47af403d6A0079530",
+module.exports = {
+  contractAddress: "0xbF9E0d1eBAc85a0FAF0D100fe687bB61f3b5DbB8",
 
   owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
-  stripeCheckoutLink: "https://buy.stripe.com/5kA8xs4Tp4SkehafYY",
-  paperCheckoutLink: "https://paper.xyz/checkout/588da683-dabc-466d-a962-c2158cf08c3d",
 
+  paperCheckoutLink: "https://paper.xyz/checkout/05fd9d05-afe9-4b71-85c2-4f5fc9e597c7",
+
+  allowListProof: [
+    '0x97533c02110e6573027c4c00710b22618e3b039a5a99f419e86c29e537c4b59c',
+    '0xeafac40d278a20912dad05fa5ea3b0c8489d4b9e382f8925e343ea6d7986b376'
+  ],
+
+  // development
   alchemyKey: "yxZEOqdqzCNCExJZEwY4iPEeu6jZpyMi",
   chain: chain.goerli,
 
+  // production
   // alchemyKey: "577rlGmGIdps3j2owCjazI3jPeYrgvNt",
   // chain: chain.mainnet
+
+  stripeCheckoutLink: "https://buy.stripe.com/5kA8xs4Tp4SkehafYY"
 }

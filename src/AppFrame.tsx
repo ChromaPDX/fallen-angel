@@ -12,7 +12,7 @@ import {
 
 import configs from "../config";
 
-const ContractAbi = require("../artifacts/contracts/LiquidCollection.sol/LiquidCollection.json");
+const ContractAbi = require("../artifacts/contracts/LiquidCollections.sol/LiquidCollections.json");
 
 const { chains, provider } = configureChains(
   [configs.chain],

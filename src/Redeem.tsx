@@ -4,7 +4,7 @@ import { DateTime } from "luxon";
 import AppFrame from "./AppFrame";
 import { useContractEvent } from "wagmi";
 
-const ContractAbi = require("../artifacts/contracts/LiquidCollection.sol/LiquidCollection.json");
+const ContractAbi = require("../artifacts/contracts/LiquidCollections.sol/LiquidCollections.json");
 const configs = require("../config");
 
 const isInState = state => true
