@@ -7,6 +7,8 @@
   "license": "MIT",
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.5.3",
+    "@nomicfoundation/hardhat-chai-matchers": "^1.0.4",
+    "@nomiclabs/hardhat-ethers": "^2.0.0",
     "@openzeppelin/contracts": "4.7.3",
     "@openzeppelin/contracts-upgradeable": "^4.7.3",
     "@rainbow-me/rainbowkit": "0.7.3",
@@ -16,6 +18,7 @@
     "@thirdweb-dev/sdk": "^3.4.1",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
+    "chai": "^4.3.6",
     "crypto-browserify": "^3.12.0",
     "css-loader": "^6.7.1",
     "csvtojson": "^2.0.10",
@@ -53,11 +56,13 @@
     "nft:build": "npx thirdweb@latest detect",
     "nft:deploy": "npx thirdweb@latest deploy",
     "nft:release": "npx thirdweb@latest release",
-    "web2:build": "yarn webpack",
-    "web2:dev": "yarn webpack serve",
     "web3:build": "npx thirdweb@latest detect",
     "web3:deploy": "npx thirdweb@latest deploy",
     "solc:compile": "solc ./contracts/LiquidCollections.sol",
-    "allowlistproof": "node allowlistproof.js"
+    "allowlistproof": "node allowlistproof.js",
+    "app:build": "yarn webpack",
+    "app:dev": "yarn webpack serve",
+    "anim:dev": "yarn webpack serve -c animation.webpack.js",
+    "anim:build": "yarn webpack -c animation.webpack.js"
   }
 }

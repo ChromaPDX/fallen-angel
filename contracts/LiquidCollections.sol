@@ -84,23 +84,23 @@ contract LiquidCollections is IERC721Enumerable, ERC721Drop {
     event Redeem(address indexed from, uint256 indexed tokenId);
 
     function isRedeemable(uint256 tokenId) public view virtual returns (bool) {
-        require(
-            _exists(tokenId),
-            "LiquidCollections: Redeem query for nonexistent token"
-        );
+        require(_exists(tokenId), "LiquidCollections: Token does not exist");
         return !redeemed[tokenId];
     }
 
     function redeem(uint256 tokenId) public virtual {
-        require(
-            _exists(tokenId),
-            "LiquidCollections: Redeem query for nonexistent token"
-        );
+        require(_exists(tokenId), "LiquidCollections: Token does not exist");
         require(
             ownerOf(tokenId) == msg.sender,
             "LiquidCollections: You are not the owner of this token"
         );
+        require(
+            redeemed[tokenId] == false,
+            "LiquidCollections: NFT is aleady redeemed"
+        );
+
         redeemed[tokenId] = true;
+
         emit Redeem(msg.sender, tokenId);
     }
 

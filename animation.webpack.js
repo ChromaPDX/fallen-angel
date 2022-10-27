@@ -9,14 +9,13 @@ const isProduction = process.env.NODE_ENV == "production";
 // console.log("building project for contract @", ADDRESS);
 
 const config = {
-  entry: "./index.tsx",
+  entry: "./animation.tsx",
   experiments: {
     topLevelAwait: true
   },
   output: {
-    filename: 'app.bundle.js',
+    filename: 'animation.bundle.js',
   },
-
   devServer: {
     open: true,
     host: "localhost",
