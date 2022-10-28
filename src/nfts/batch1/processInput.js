@@ -25,7 +25,8 @@ function pad(num, size) {
 }
 
 const lastIndex = -1;
-for (let i = 1; i < 4; i++) {
+const total = 5;
+for (let i = 1; i < total + 1; i++) {
   const actualIndex = i + lastIndex;
   const fancyIndex = actualIndex + 1;
   stringifier.write([
