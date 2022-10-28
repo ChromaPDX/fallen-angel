@@ -1,15 +1,3 @@
-/* #root {
-  margin: 0;
-  height: 100vh;
-  width: 100vw;
-} */
-
-
-
-body {
-  background-color: lightgray;
-}
-
 p,
 li {
   max-width: "50rem";

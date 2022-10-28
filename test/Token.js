@@ -52,7 +52,6 @@ describe("Token contract", function () {
       BigNumber.from((await hardhatToken.functions.nextTokenIdToClaim())[0])
     ).to.equal(1);
 
-
     await hardhatToken.connect(signerA).redeem(0);
 
     await expect(

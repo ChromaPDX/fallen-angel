@@ -3743,7 +3743,7 @@ csv-stringify@^6.2.0:
   resolved "https://registry.yarnpkg.com/csv-stringify/-/csv-stringify-6.2.0.tgz#f89881e8f61293bf5af11f421266b5da7b744030"
   integrity sha512-dcUbQLRTTDcgQxgEU8V9IctkaCwHZjZfzUZ5ZB3RY8Y+pXtdtl5iVQHfGzANytFFkRKanYzBXrkfpNdGR7eviA==
 
-csv@^6.0.5:
+csv@^6.0.5, csv@^6.2.1:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/csv/-/csv-6.2.1.tgz#2f26b81b410f9464a98e942f249da16cd9c1eea2"
   integrity sha512-qTEPklcIZkJGaB/j6/2qNXZbKgWSXPVMyRnZvRcb1F7MGyvLqJexlZlbJ3NQkgmUoAeScZhsRHjlZEgImBfCYQ==
