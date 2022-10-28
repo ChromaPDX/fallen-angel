@@ -1,5 +1,3 @@
-import React from "react";
-import ReactDom from "react-dom";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 
 import configs from "./config";
@@ -57,16 +55,17 @@ document.addEventListener("DOMContentLoaded", async (event) => {
   const contract = await sdk.getContract(configs.contractAddress);
   const isRedeemable = await contract.call("isRedeemable", nftid);
 
+  var DOM_img = document.createElement("img");
+  console.log(DOM_img)
+
+
   if (isRedeemable) {
     /* @ts-ignore:next-line */
-    const f = sortedPreImages[nftid].output
-
-    ReactDom.render(<>
-      <img src={f} />
-    </>, document.getElementById('root'));
+    DOM_img.src = sortedPreImages[nftid].output;
+    document.body.appendChild(DOM_img);
   } else {
-    ReactDom.render(<>
-      <img src={postImages[nftid]} />
-    </>, document.getElementById('root'));
+
+    DOM_img.src = postImages[nftid];
+    document.body.appendChild(DOM_img);
   }
 })
