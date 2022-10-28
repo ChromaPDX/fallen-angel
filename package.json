@@ -63,6 +63,7 @@
     "app:build": "yarn webpack",
     "app:dev": "yarn webpack serve",
     "anim:dev": "yarn webpack serve -c animation.webpack.js",
-    "anim:build": "yarn webpack -c animation.webpack.js"
+    "anim:build": "yarn webpack -c animation.webpack.js",
+    "smoketest": "python3 -m http.server -d dist 8000"
   }
 }

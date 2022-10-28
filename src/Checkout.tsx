@@ -1,7 +1,7 @@
 import { usePrepareContractWrite, useContractWrite, useContractEvent } from 'wagmi'
 import React, { useEffect, useState } from "react";
 import { BigNumber } from "ethers"
-import { Erc721ClaimableWithConditions } from "@thirdweb-dev/sdk";
+// import { Erc721ClaimableWithConditions } from "@thirdweb-dev/sdk";
 
 import configs from "../config";
 

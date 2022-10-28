@@ -17,6 +17,7 @@ const config = {
     filename: 'animation.bundle.js',
   },
   devServer: {
+    historyApiFallback: true,
     open: true,
     host: "localhost",
     static: {
