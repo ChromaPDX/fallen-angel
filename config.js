@@ -3,17 +3,12 @@ const chain = require("wagmi").chain;
 module.exports = {
   // contractAddress: "0xbF9E0d1eBAc85a0FAF0D100fe687bB61f3b5DbB8",
   // contractAddress: "0x71eD799fB9680449E07076D47af403d6A0079530",
-  contractAddress: "0xaD839BF7438E42F04Caf350D06966A12dda44E55",
+  contractAddress: "0xe36549d38fB277C2f3932C70A21A7320fc98F213",
 
 
   owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
 
   paperCheckoutLink: "https://paper.xyz/checkout/5fa7c655-9009-45b1-aa36-83070d98b245",
-
-  // allowListProof: [
-  //   '0x97533c02110e6573027c4c00710b22618e3b039a5a99f419e86c29e537c4b59c',
-  //   '0xeafac40d278a20912dad05fa5ea3b0c8489d4b9e382f8925e343ea6d7986b376'
-  // ],
 
   allowListProof: [
     '0x97533c02110e6573027c4c00710b22618e3b039a5a99f419e86c29e537c4b59c',
