@@ -5,29 +5,20 @@ import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import configs from "./config";
 
 function importAll(r) {
-
   return r.keys().map(r);
 }
 
 /* @ts-ignore:next-line */
-// console.log(require.context('./src/images/batch0/pre/', false, /\.(png|jpe?g|svg)$/).keys());
-
-
-/* @ts-ignore:next-line */
-const postImages = importAll(require.context('./src/images/batch0/post/', false, /\.(png|jpe?g|svg)$/));
-/* @ts-ignore:next-line */
-// const preImages = importAll(require.context('./src/images/batch0/pre/', false, /\.(png|jpe?g|svg)$/));
+const postImages = importAll(require.context('./src/nfts/batch0/post/', false, /\.(png|jpe?g|svg)$/));
 
 /* @ts-ignore:next-line */
-const preContext = require.context('./src/images/batch0/pre/', false, /\.(png|jpe?g|svg)$/);
+const preContext = require.context('./src/nfts/batch0/pre/', false, /\.(png|jpe?g|svg)$/);
 
 const preImagesImport2 = importAll(preContext)
 const unbundledFiles = preContext.keys();
 
 const preImages3 = [];
 for (let i = 0; i < preImagesImport2.length; i++) {
-
-
   const matches = unbundledFiles[i].match(/.\/(\d*).jpg+/);
 
   /* @ts-ignore:next-line */
@@ -39,11 +30,9 @@ for (let i = 0; i < preImagesImport2.length; i++) {
 }
 
 /* @ts-ignore:next-line */
-console.log(preImages3.sort((a, b) => a.num - b.num))
+const sortedPreImages = preImages3.sort((a, b) => a.num - b.num)
 
-
-
-// http://localhost:8080/?nftid=0
+console.log(sortedPreImages)
 
 var getUrlParameter = function getUrlParameter(sParam) {
   var sPageURL = window.location.search.substring(1),
@@ -61,8 +50,6 @@ var getUrlParameter = function getUrlParameter(sParam) {
   return false;
 };
 
-// console.log(preImages);
-
 document.addEventListener("DOMContentLoaded", async (event) => {
   /* @ts-ignore:next-line */
   var nftid: number = parseInt(getUrlParameter('nftid'));
@@ -70,12 +57,9 @@ document.addEventListener("DOMContentLoaded", async (event) => {
   const contract = await sdk.getContract(configs.contractAddress);
   const isRedeemable = await contract.call("isRedeemable", nftid);
 
-  // console.log(preImages)
-
-
   if (isRedeemable) {
     /* @ts-ignore:next-line */
-    const f = preImages3[nftid].output
+    const f = sortedPreImages[nftid].output
 
     ReactDom.render(<>
       <img src={f} />

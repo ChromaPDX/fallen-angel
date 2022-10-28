@@ -59,11 +59,11 @@
     "web3:build": "npx thirdweb@latest detect",
     "web3:deploy": "npx thirdweb@latest deploy",
     "solc:compile": "solc ./contracts/LiquidCollections.sol",
-    "allowlistproof": "node allowlistproof.js",
+    "allowlistproof": "node ./src/allowlistproof.js",
     "app:build": "yarn webpack",
     "app:dev": "yarn webpack serve",
-    "anim:dev": "yarn webpack serve -c animation.webpack.js",
-    "anim:build": "yarn webpack -c animation.webpack.js",
+    "anim:dev": "yarn webpack serve -c animation.webpack.js --mode=development",
+    "anim:build": "yarn webpack -c animation.webpack.js --mode=production",
     "smoketest": "python3 -m http.server -d dist 8000"
   }
 }
