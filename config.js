@@ -3,7 +3,7 @@ const chain = require("wagmi").chain;
 module.exports = {
   // contractAddress: "0xbF9E0d1eBAc85a0FAF0D100fe687bB61f3b5DbB8",
   // contractAddress: "0x71eD799fB9680449E07076D47af403d6A0079530",
-  contractAddress: "0xe36549d38fB277C2f3932C70A21A7320fc98F213",
+  contractAddress: "0xFFc81f3c71ce40ABEfaa421C520CF3fb3B8AaEcD",
 
 
   owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",

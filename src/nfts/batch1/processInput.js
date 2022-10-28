@@ -31,9 +31,9 @@ function pad(num, size) {
   return num;
 }
 
-const offset = 0;
-for (let i = 0; i < 300; i++) {
-  const actualIndex = i + offset;
+const lastIndex = -1;
+for (let i = 1; i < 4; i++) {
+  const actualIndex = i + lastIndex;
   const fancyIndex = actualIndex + 1;
   stringifier.write([
     `Lil Noun Spirited Vodka #${pad(fancyIndex, 3)}`,
