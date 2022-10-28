@@ -62,10 +62,11 @@ document.addEventListener("DOMContentLoaded", async (event) => {
   if (isRedeemable) {
     /* @ts-ignore:next-line */
     DOM_img.src = sortedPreImages[nftid].output;
-    document.body.appendChild(DOM_img);
+    /* @ts-ignore:next-line */
+    document.body.innerHTML = DOM_img.outerHTML;
   } else {
-
     DOM_img.src = postImages[nftid];
-    document.body.appendChild(DOM_img);
+    /* @ts-ignore:next-line */
+    document.body.innerHTML = DOM_img.outerHTML;
   }
 })
