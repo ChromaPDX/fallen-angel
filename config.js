@@ -21,5 +21,13 @@ module.exports = {
   // alchemyKey: "577rlGmGIdps3j2owCjazI3jPeYrgvNt",
   // chain: chain.mainnet
 
-  stripeCheckoutLink: "https://buy.stripe.com/5kA8xs4Tp4SkehafYY"
+  stripeCheckoutLink: "https://buy.stripe.com/5kA8xs4Tp4SkehafYY",
+
+  nullProof: {
+    "proof": ["0x0000000000000000000000000000000000000000000000000000000000000000"],
+    "maxQuantityInAllowlist": 0
+  }
 }
+
+
+// { "proof": ["0x97533c02110e6573027c4c00710b22618e3b039a5a99f419e86c29e537c4b59c", "0xeafac40d278a20912dad05fa5ea3b0c8489d4b9e382f8925e343ea6d7986b376"], "maxQuantityInAllowlist": 0 }
