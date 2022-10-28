@@ -62,7 +62,7 @@
     "web3:deploy": "npx thirdweb@latest deploy",
     "solc:compile": "solc ./contracts/LiquidCollections.sol",
     "allowlistproof": "node ./src/allowlistproof.js",
-    "app:build": "yarn webpack",
+    "app:build": "yarn webpack --mode=production",
     "app:dev": "yarn webpack serve",
     "anim:dev": "yarn webpack serve -c animation.webpack.js --mode=development",
     "anim:build": "yarn webpack -c animation.webpack.js --mode=production",
