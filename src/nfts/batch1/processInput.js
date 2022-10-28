@@ -43,13 +43,9 @@ Go to the collection page https://liquidcollections.com/lil-noun-vodka for redem
     `750ml`,
     `Two`,
     `One`,
-
     `2022`,
+    `${fancyIndex}.jpg`,
     `https://chromapdx.github.io/liquidCollectionXChroma/animation-prod.html?nftid=${actualIndex}`,
-    `${fancyIndex}.jpg`
-
   ]);
 }
-
 stringifier.pipe(writableStream);
-console.log("Finished writing data");
