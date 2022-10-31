@@ -1,12 +1,17 @@
 const chain = require("wagmi").chain;
 
 module.exports = {
-  _pricePerToken: "0.005",
-  _pricePerTokenInWei: "5000000000000000",
-  currency: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-  contractAddress: "0x83D70B516D691e2518bebcc4825ccf98f5a08d7C",
+  // _pricePerToken: "0.005",
+  // _pricePerTokenInWei: "5000000000000000",
+  _pricePerToken: "0.065",
+  _pricePerTokenInWei: "65000000000000000",
 
-  owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
+  currency: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+
+  contractAddress: "0xA8a4764FD41b036D4B00795bE31E0eba92ef869d",
+
+  // owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
+  owner: "0x0A58e58ECb0dD36E0e56975b86F9d76Dd9e4272e",
 
   paperCheckoutLink: "https://paper.xyz/checkout/f94fe293-ec05-4e29-ad27-df373f84c052",
 
@@ -17,7 +22,7 @@ module.exports = {
 
   // development
   alchemyKey: "yxZEOqdqzCNCExJZEwY4iPEeu6jZpyMi",
-  chain: chain.goerli,
+  chain: chain.mainnet,
 
   // production
   // alchemyKey: "577rlGmGIdps3j2owCjazI3jPeYrgvNt",

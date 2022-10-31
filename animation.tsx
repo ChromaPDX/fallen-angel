@@ -7,10 +7,10 @@ function importAll(r) {
 }
 
 /* @ts-ignore:next-line */
-const postImages = importAll(require.context('./src/nfts/batch0/post/', false, /\.(png|jpe?g|svg)$/));
+const postImages = importAll(require.context('./src/nfts/batch2/post/', false, /\.(png|jpe?g|svg)$/));
 
 /* @ts-ignore:next-line */
-const preContext = require.context('./src/nfts/batch0/pre/', false, /\.(png|jpe?g|svg)$/);
+const preContext = require.context('./src/nfts/batch2/pre/', false, /\.(png|jpe?g|svg)$/);
 
 const preImagesImport2 = importAll(preContext)
 const unbundledFiles = preContext.keys();

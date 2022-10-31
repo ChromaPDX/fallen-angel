@@ -35,11 +35,14 @@ for (let i = 1; i < total + 1; i++) {
 This is the first in a series of exclusive, collectible ultra-premium spirits made in collaboration with artists. Launching with a unique Lil Noun, Liquid Collections created a ghostly-inspired, limited-edition vodka, only available via NFT.
 Made of locally sourced winter wheat from a farm in Washington state, this Spirited vodka has been artisanally crafted, triple-distilled, and freeze-filtered before being blended with ultra-pure water from the Cascade mountain range.
 
-Go to the collection page https://liquidcollections.com/lil-noun-vodka for redemption logistics, FAQs and to sign up for notifications via email.`,
+Go to the collection page https://liquidcollections.com/lil-noun-vodka for redemption logistics, FAQs and to sign up for notifications via email.
+
+When bottles have been claimed, the NFT image will show a bottle on its side and the words “Bottles Collected” at the bottom right corner.
+`,
 
     `Vodka`,
     `Pacific Northwest`,
-    `40%`,
+    `"40%"`,
     `750ml`,
     `Two`,
     `One`,
