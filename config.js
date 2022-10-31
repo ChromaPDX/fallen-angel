@@ -21,11 +21,11 @@ module.exports = {
   ],
 
   // development
-  alchemyKey: "yxZEOqdqzCNCExJZEwY4iPEeu6jZpyMi",
+  // alchemyKey: "yxZEOqdqzCNCExJZEwY4iPEeu6jZpyMi",
   chain: chain.mainnet,
 
   // production
-  // alchemyKey: "577rlGmGIdps3j2owCjazI3jPeYrgvNt",
+  alchemyKey: "577rlGmGIdps3j2owCjazI3jPeYrgvNt",
   // chain: chain.mainnet
 
   stripeCheckoutLink: "https://buy.stripe.com/5kA8xs4Tp4SkehafYY",
