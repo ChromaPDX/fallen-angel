@@ -1,11 +1,12 @@
 import { usePrepareContractWrite, useContractWrite, useContractEvent } from 'wagmi'
 import React, { useEffect, useState } from "react";
-import { BigNumber } from "ethers"
+import { BigNumber, ethers } from "ethers"
 // import { Erc721ClaimableWithConditions } from "@thirdweb-dev/sdk";
 
 import configs from "../config";
 
 import AppFrame from "./AppFrame";
+import { getAccountPath } from 'ethers/lib/utils';
 
 const ContractAbi = require("../artifacts/contracts/LiquidCollections.sol/LiquidCollections.json");
 
@@ -37,11 +38,15 @@ export function Checkout(props: { contract, signer, address }) {
     args: [
       address,
       1,
-      "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+      configs.currency,
       configs._pricePerTokenInWei,
       configs.nullProof,
       "0x6162636400000000000000000000000000000000000000000000000000000000"
     ],
+    overrides: {
+      // from: getAccountPath,
+      value: configs._pricePerTokenInWei // ethers.utils.parseEther('0.05'),
+    },
   })
 
   const { data, isLoading, isSuccess, write, writeAsync } = useContractWrite(config)
