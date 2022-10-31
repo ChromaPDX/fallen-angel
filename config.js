@@ -1,10 +1,10 @@
 const chain = require("wagmi").chain;
 
 module.exports = {
-  // _pricePerToken: "0.005",
-  // _pricePerTokenInWei: "5000000000000000",
-  _pricePerToken: "0.065",
-  _pricePerTokenInWei: "65000000000000000",
+  _pricePerToken: "0.005",
+  _pricePerTokenInWei: "5000000000000000",
+  // _pricePerToken: "0.065",
+  // _pricePerTokenInWei: "65000000000000000",
 
   currency: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
 
