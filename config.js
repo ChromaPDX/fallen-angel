@@ -1,8 +1,14 @@
 const chain = require("wagmi").chain;
 
+// 5000000000000000
 module.exports = {
-  _pricePerToken: "0.005",
-  _pricePerTokenInWei: "5000000000000000",
+  // _pricePerToken: "0.005",
+  // _pricePerTokenInWei: "5000000000000000",
+
+  // _pricePerToken: "0.05",
+  // _pricePerTokenInWei: "50000000000000000",
+
+
   // _pricePerToken: "0.065",
   // _pricePerTokenInWei: "65000000000000000",
 
@@ -13,7 +19,7 @@ module.exports = {
   // owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
   owner: "0x0A58e58ECb0dD36E0e56975b86F9d76Dd9e4272e",
 
-  paperCheckoutLink: "https://paper.xyz/checkout/755b8bbb-18b4-4134-82ad-a616c5ad1d81",
+  paperCheckoutLink: "https://paper.xyz/checkout/36ae33af-ab50-4196-bec2-ede8ef29b84b",
 
   allowListProof: [
     '0xeafac40d278a20912dad05fa5ea3b0c8489d4b9e382f8925e343ea6d7986b376',
