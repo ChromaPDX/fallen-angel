@@ -2,8 +2,9 @@ const chain = require("wagmi").chain;
 
 module.exports = {
   _pricePerToken: "0.005",
+  _pricePerTokenInWei: "5000000000000000",
   currency: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-  contractAddress: "0xD4F9bA03Bc0B866791e10260d7999e9886C95a7E",
+  contractAddress: "0x83D70B516D691e2518bebcc4825ccf98f5a08d7C",
 
   owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
 
