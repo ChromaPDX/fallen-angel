@@ -38,8 +38,8 @@ export function Checkout(props: { contract, signer, address }) {
       address,
       1,
       "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-      0,
-      proof,
+      configs._pricePerTokenInWei,
+      configs.nullProof,
       "0x6162636400000000000000000000000000000000000000000000000000000000"
     ],
   })
