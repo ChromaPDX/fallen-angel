@@ -51,7 +51,9 @@ var getUrlParameter = function getUrlParameter(sParam) {
 document.addEventListener("DOMContentLoaded", async (event) => {
   /* @ts-ignore:next-line */
   var nftid: number = parseInt(getUrlParameter('nftid'));
-  const sdk = new ThirdwebSDK(configs.chain.network);
+
+  /* @ts-ignore:next-line */
+  const sdk = new ThirdwebSDK(configs.chain.id);
   const contract = await sdk.getContract(configs.contractAddress);
   const isRedeemable = await contract.call("isRedeemable", nftid);
 
