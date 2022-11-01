@@ -69,6 +69,7 @@
     "anim:dev": "yarn webpack serve -c animation.webpack.js --mode=development",
     "anim:build": "yarn webpack -c animation.webpack.js --mode=production",
     "smoketest": "python3 -m http.server -d dist 8000",
-    "solt": "~/.local/bin/solt write contracts --npm"
+    "solt": "~/.local/bin/solt write contracts --npm",
+    "web2:build": "yarn app:build && yarn anim:build"
   }
 }
