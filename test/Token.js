@@ -45,6 +45,7 @@ describe("Token contract", function () {
 
     await hardhatToken.claim(signerA.address, 1, currency, pricePerToken, proof, dummyData, { value: pricePerToken });
 
+
     expect(
       BigNumber.from((await hardhatToken.functions.nextTokenIdToMint())[0])
     ).to.equal(3);
@@ -76,6 +77,43 @@ describe("Token contract", function () {
     await expect(
       hardhatToken.connect(signerB).redeem(1)
     ).to.be.revertedWith('LiquidCollections: NFT is aleady redeemed')
+
+  });
+
+  it("returns tokenURI", async function () {
+    //  get 3 random addresses. The 1st shall be the owner of the contract, the others will be users claiming NFTs
+    const [owner, signerA, signerB] = await ethers.getSigners();
+
+    const contractFactory = await ethers.getContractFactory(lcName);
+    const contract = await contractFactory.deploy(lcName, lcSymbol, owner.address, 1, owner.address);
+    await contract.lazyMint(1, ipfsURL, nullData);
+    await contract.lazyMint(2, ipfsURL, nullData);
+
+
+    await contract.functions.setClaimConditions({
+      startTimestamp: 0,
+      maxClaimableSupply: 100,
+      supplyClaimed: 0,
+      quantityLimitPerTransaction: 1,
+      waitTimeInSecondsBetweenClaims: 1,
+      merkleRoot,
+      pricePerToken,
+      currency
+    }, false)
+
+    await contract.claim(signerA.address, 1, currency, pricePerToken, proof, dummyData, { value: pricePerToken });
+
+    const data = (await contract.functions.tokenURI(0))[0]
+    // console.log("data", data);
+    const body = data.split("data:application/json;base64,")[1]
+    // console.log("body", body);
+    let buff = new Buffer(body, 'base64');
+    let text = buff.toString('ascii');
+    // console.log("text", text);
+    const jsonMetadata = JSON.parse(text);
+    // console.log("jsonMetadata", jsonMetadata);
+
+    await expect(jsonMetadata).to.deep.equal({ name: 'My721Token #0' })
 
   });
 

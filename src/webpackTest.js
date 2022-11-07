@@ -1,9 +1,10 @@
 const ThirdwebSDK = require("@thirdweb-dev/sdk").ThirdwebSDK;
-const secrets = require('../.secrets.json');
+// const secrets = require('../.secrets.json');
 const configs = require('../config.js');
 
 const main = async () => {
   const sdk = ThirdwebSDK.fromPrivateKey(secrets.privateKey, configs.chain.network);
+  console.log(sdk)
   const contract = await sdk.getContract(configs.contractAddress);
   console.log(contract)
 }
