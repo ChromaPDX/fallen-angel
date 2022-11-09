@@ -63,10 +63,12 @@ function Home() {
 
       <hr />
 
-
+      <h2>Claim an NFT, if you are allowed</h2>
       <button onClick={(e) => {
         contract?.erc721.claim(1)
       }}>claim</button>
+
+      <hr />
 
       <h2>All NFTs</h2>
       {isReadingNfts ? (
@@ -82,6 +84,9 @@ function Home() {
           ))}
         </div>
       )}
+
+
+      <hr />
     </div>
   );
 }
