@@ -31,7 +31,8 @@ function Home() {
 
   const myAddress = account[0].data?.address;
 
-  const [state, setState] = useState<{ stage: number, myNfts: NFT[] }>({
+  const [state, setState] = useState<{ quantity: number, stage: number, myNfts: NFT[] }>({
+    quantity: 1,
     stage: 0,
     myNfts: []
   });
@@ -40,8 +41,9 @@ function Home() {
     if (myAddress && state.stage === 0) {
       contract?.erc721.getOwned(myAddress).then((nfts) => {
         setState({
+          ...state,
           stage: 1,
-          myNfts: nfts
+          myNfts: nfts,
         });
       })
     }
@@ -64,9 +66,18 @@ function Home() {
       <hr />
 
       <h2>Claim an NFT, if you are allowed</h2>
+      <input
+        type="number"
+        min="1"
+        max="9"
+        value={state.quantity}
+        onChange={(e) => setState({
+          ...state,
+          quantity: Number.parseInt(e.target.value)
+        })} />
       <button onClick={(e) => {
-        contract?.erc721.claim(1)
-      }}>claim</button>
+        contract?.erc721.claim(state.quantity)
+      }}>claim {state.quantity} NFTs</button>
 
       <hr />
 
