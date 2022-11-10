@@ -2,7 +2,7 @@ const { BigNumber } = require("ethers")
 const { ethers } = require("hardhat");
 const { expect } = require("chai");
 
-const lcName = "LiquidCollections";
+const lcName = "LiquidCollectionsDynamicMetadata";
 const lcSymbol = "lc-test";
 const ipfsURL = "ipfs://QmcceQ5mbWixKox1jnEA67kKZuTojCyobfXBJtd7ewJjP4/";
 const nullData = "0x"
@@ -14,6 +14,14 @@ const proof = {
   "maxQuantityInAllowlist": 0
 };
 const dummyData = "0x6162636400000000000000000000000000000000000000000000000000000000";
+
+const getMetadata = (tokenUri) => {
+  const data = tokenUri[0]
+  const body = data.split("data:application/json;base64,")[1]
+  let buff = new Buffer(body, 'base64');
+  let text = buff.toString('ascii');
+  return JSON.parse(text);
+}
 
 describe("Token contract", function () {
   it("Deploys and mints and redeems", async function () {
@@ -103,17 +111,17 @@ describe("Token contract", function () {
 
     await contract.claim(signerA.address, 1, currency, pricePerToken, proof, dummyData, { value: pricePerToken });
 
-    const data = (await contract.functions.tokenURI(0))[0]
-    // console.log("data", data);
-    const body = data.split("data:application/json;base64,")[1]
-    // console.log("body", body);
-    let buff = new Buffer(body, 'base64');
-    let text = buff.toString('ascii');
-    // console.log("text", text);
-    const jsonMetadata = JSON.parse(text);
-    // console.log("jsonMetadata", jsonMetadata);
+    // const data = (await contract.functions.tokenURI(0))[0]
+    // // console.log("data", data);
+    // const body = data.split("data:application/json;base64,")[1]
+    // // console.log("body", body);
+    // let buff = new Buffer(body, 'base64');
+    // let text = buff.toString('ascii');
+    // const jsonMetadata = JSON.parse(text);
 
-    await expect(jsonMetadata).to.deep.equal({ name: 'My721Token #0' })
+    await expect(getMetadata(await contract.functions.tokenURI(0))).to.deep.equal({ name: 'My721Token #0', foo: "bar", redeemable: true })
+    await contract.connect(signerA).redeem(0);
+    await expect(getMetadata(await contract.functions.tokenURI(0))).to.deep.equal({ name: 'My721Token #0 [REDEEMED]', foo: "bar", redeemable: false })
 
   });
 

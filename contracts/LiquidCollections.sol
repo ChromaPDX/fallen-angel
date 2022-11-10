@@ -5,9 +5,6 @@ import "@thirdweb-dev/contracts/base/ERC721Drop.sol";
 import "@thirdweb-dev/contracts/eip/interface/IERC721Enumerable.sol";
 import "@thirdweb-dev/contracts/extension/Drop.sol";
 
-import "@openzeppelin/contracts/utils/Strings.sol";
-import "@openzeppelin/contracts/utils/Base64.sol";
-
 contract LiquidCollections is IERC721Enumerable, ERC721Drop {
     constructor(
         string memory _name,
@@ -78,49 +75,6 @@ contract LiquidCollections is IERC721Enumerable, ERC721Drop {
     //         toVerifyMaxQuantityPerTransaction
     //     );
     // }
-
-    /*///////////////////////////////////////////////////////////////
-                    Overriden ERC 721 logic
-    //////////////////////////////////////////////////////////////*/
-
-    /**
-     *  @notice         Returns the metadata URI for an NFT.
-     *  @dev            See `BatchMintMetadata` for handling of metadata in this contract.
-     *
-     *  @param _tokenId The tokenId of an NFT.
-     */
-    function tokenURI(uint256 _tokenId)
-        public
-        view
-        virtual
-        override
-        returns (string memory)
-    {
-        // (uint256 batchId, ) = _getBatchId(_tokenId);
-        // string memory batchUri = _getBaseURI(_tokenId);
-        // if (isEncryptedBatch(batchId)) {
-        //     return string(abi.encodePacked(batchUri, "0"));
-        // } else {
-        //     return string(abi.encodePacked(batchUri, _tokenId.toString()));
-        // }
-        // return "hello";
-        bytes memory dataURI = abi.encodePacked(
-            "{",
-            '"name": "My721Token #',
-            Strings.toString(_tokenId),
-            '"',
-            // Replace with extra ERC721 Metadata properties
-            "}"
-        );
-
-        return
-            string(
-                abi.encodePacked(
-                    "data:application/json;base64,",
-                    Base64.encode(dataURI)
-                )
-            );
-    }
 
     /////////////////////
     // redemption
