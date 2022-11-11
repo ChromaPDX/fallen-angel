@@ -69,7 +69,7 @@ function Home() {
       <input
         type="number"
         min="1"
-        max="9"
+        max="300"
         value={state.quantity}
         onChange={(e) => setState({
           ...state,
