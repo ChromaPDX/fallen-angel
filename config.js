@@ -18,14 +18,11 @@ module.exports = {
 
   currency: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
 
-
   owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
-  contractAddress: "0x83D70B516D691e2518bebcc4825ccf98f5a08d7C",
-
   // owner: "0x0A58e58ECb0dD36E0e56975b86F9d76Dd9e4272e",
+
   // contractAddress: "0xA8a4764FD41b036D4B00795bE31E0eba92ef869d",
-
-
+  contractAddress: "0x83D70B516D691e2518bebcc4825ccf98f5a08d7C",
 
   allowListProof: [
     '0xeafac40d278a20912dad05fa5ea3b0c8489d4b9e382f8925e343ea6d7986b376',
@@ -38,7 +35,7 @@ module.exports = {
 
   // production
   // alchemyKey: "577rlGmGIdps3j2owCjazI3jPeYrgvNt",
-  // chain: chain.mainnet,
+  // chain: chain.mainnet
 
   stripeCheckoutLink: "https://buy.stripe.com/5kA8xs4Tp4SkehafYY",
 
