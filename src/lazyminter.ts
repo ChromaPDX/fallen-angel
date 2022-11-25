@@ -5,13 +5,11 @@ import configs from "../config";
 
 if (!process.env.privatekey) {
   console.error("set an env var for `privatekey`!");
-  process.exit(-1)
+  process.exit(-1);
 }
 const PRIVATE_KEY = process.env.privatekey;
 
 const sdk = ThirdwebSDK.fromPrivateKey(PRIVATE_KEY, configs.chain.network);
-
-
 
 // const metadatas = [{
 //   name: "Cool NFT",
@@ -23,12 +21,12 @@ const sdk = ThirdwebSDK.fromPrivateKey(PRIVATE_KEY, configs.chain.network);
 //   // image: fs.readFileSync("path/to/image.png"),
 // }];
 
-const metadatas = new Array(5).fill({})
+const metadatas = new Array(20).fill({});
 
 const contract = await sdk.getContract(configs.contractAddress);
-const results = await contract.erc721.lazyMint(metadatas)
+const results = await contract.erc721.lazyMint(metadatas);
 
-console.log("done", results)
+console.log("done", results);
 // import { NFTStorage } from 'nft.storage'
 
 // import path from "path";
