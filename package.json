@@ -36,6 +36,7 @@
         "html-webpack-plugin": "^5.5.0",
         "https-browserify": "^1.0.0",
         "ipfs-http-client": "59.0.0",
+        "luxon": "^3.1.0",
         "nft.storage": "^7.0.0",
         "os-browserify": "^0.3.0",
         "react": ">=18.0.0",
@@ -48,7 +49,7 @@
         "ts-loader": "^9.3.1",
         "typescript": "4.8.2",
         "url": "^0.11.0",
-        "wagmi": "^0.8.0",
+        "wagmi": "^0.8.5",
         "web3": "^1.8.0",
         "webpack": "^5.74.0",
         "webpack-dev-server": "^4.11.1",
@@ -81,6 +82,7 @@
         "web2:build": "yarn app:build && yarn anim:build",
         "build-run:server": "nodemon ./dist/server.bundle.js; yarn webpack --watch -c server.webpack.config.js",
         "build:NftFactory": "yarn webpack -c nfts.webpack.config.js",
-        "ipfs:upload": "yarn webpack -c ipfsUploader.webpack.config.js"
+        "ipfs:upload": "yarn webpack -c ipfsUploader.webpack.config.js && node ./dist/ipfsUploader.bundle.js",
+        "lazyminter": "yarn webpack -c lazyminter.webpack.config.js && node ./dist/lazyminter.bundle.js"
     }
 }

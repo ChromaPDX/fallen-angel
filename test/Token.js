@@ -15,12 +15,40 @@ const proof = {
 };
 const dummyData = "0x6162636400000000000000000000000000000000000000000000000000000000";
 
+const metadataCID = "bafybeiblzu7xvvcepkarrblpduffm54cncr33ndyabcd5vf7ccwhlsrufq";
+
+function pad(num, size) {
+  num = num.toString();
+  while (num.length < size) num = "0" + num;
+  return num;
+}
+
 const getMetadata = (tokenUri) => {
   const data = tokenUri[0]
   const body = data.split("data:application/json;base64,")[1]
   let buff = new Buffer(body, 'base64');
   let text = buff.toString('ascii');
   return JSON.parse(text);
+}
+
+const makeMetadata = (id, redeemable) => {
+  const fancyId = id + 1;
+  return {
+    redeemable,
+    "name": `OPJ Gin #${fancyId}${redeemable ? "" : " [REDEEMED]"}`,
+    "description": "a description goes here",
+    "image": (redeemable ? `https://${metadataCID}.ipfs.nftstorage.link/pre/${fancyId}.jpg` : `https://${metadataCID}.ipfs.nftstorage.link/post/${fancyId}.jpg`),
+    "animation_url": (redeemable ? `https://${metadataCID}.ipfs.nftstorage.link/pre/${fancyId}.jpg` : `https://${metadataCID}.ipfs.nftstorage.link/post/${fancyId}.jpg`),
+    "attributes": [
+      { "trait_type": "Spirit", "value": "Gin" },
+      // { "trait_type": "Provenance", "value": "Oregon" },
+      // { "trait_type": "Proof", "value": "86" },
+      // { "trait_type": "Size", "value": "750ml" },
+      // { "trait_type": "Distilled", "value": "2022" },
+      // { "trait_type": "Batch", "value": "One" },
+      // { "trait_type": "Style", "value": "American Gin" }
+    ]
+  }
 }
 
 describe("Token contract", function () {
@@ -111,17 +139,9 @@ describe("Token contract", function () {
 
     await contract.claim(signerA.address, 1, currency, pricePerToken, proof, dummyData, { value: pricePerToken });
 
-    // const data = (await contract.functions.tokenURI(0))[0]
-    // // console.log("data", data);
-    // const body = data.split("data:application/json;base64,")[1]
-    // // console.log("body", body);
-    // let buff = new Buffer(body, 'base64');
-    // let text = buff.toString('ascii');
-    // const jsonMetadata = JSON.parse(text);
-
-    await expect(getMetadata(await contract.functions.tokenURI(0))).to.deep.equal({ name: 'My721Token #0', foo: "bar", redeemable: true })
+    await expect(getMetadata(await contract.functions.tokenURI(0))).to.deep.equal(makeMetadata(0, true))
     await contract.connect(signerA).redeem(0);
-    await expect(getMetadata(await contract.functions.tokenURI(0))).to.deep.equal({ name: 'My721Token #0 [REDEEMED]', foo: "bar", redeemable: false })
+    await expect(getMetadata(await contract.functions.tokenURI(0))).to.deep.equal(makeMetadata(0, false))
 
   });
 

@@ -45,29 +45,57 @@ contract LiquidCollectionsDynamicMetadata is LiquidCollections {
         //     return string(abi.encodePacked(batchUri, _tokenId.toString()));
         // }
         // return "hello";
-        string memory uid = Strings.toString(_tokenId);
+        string
+            memory cid = "bafybeiblzu7xvvcepkarrblpduffm54cncr33ndyabcd5vf7ccwhlsrufq";
+        string memory fancyId = Strings.toString(_tokenId + 1);
         string memory redeemed = " [REDEEMED]";
-        string memory titleId;
+        string memory nameFancyIdAndRedeemedMaybe;
         string memory redeemable;
+        bytes memory animationurl;
+
         if (isRedeemable(_tokenId)) {
             redeemable = "true";
-            titleId = uid;
+            nameFancyIdAndRedeemedMaybe = fancyId;
+            animationurl = abi.encodePacked(
+                // "https://bafybeids3hmvw24ymjkdfrtjjxxvnwgciwyggubeuw4nziyova2ervdbpm.ipfs.nftstorage.link/pre/",
+                "https://",
+                cid,
+                ".ipfs.nftstorage.link/pre/",
+                fancyId,
+                ".jpg"
+            );
         } else {
             redeemable = "false";
             // titleId = string.concat(uid, redeemed);
-            titleId = string(bytes.concat(bytes(uid), bytes(redeemed)));
+            nameFancyIdAndRedeemedMaybe = string(
+                bytes.concat(bytes(fancyId), bytes(redeemed))
+            );
+            animationurl = abi.encodePacked(
+                // "https://bafybeids3hmvw24ymjkdfrtjjxxvnwgciwyggubeuw4nziyova2ervdbpm.ipfs.nftstorage.link/post/",
+                "https://",
+                cid,
+                ".ipfs.nftstorage.link/post/",
+                fancyId,
+                ".jpg"
+            );
         }
 
         bytes memory dataURI = abi.encodePacked(
             "{",
-            '"name": "My721Token #',
-            titleId,
+            '"name": "OPJ Gin #',
+            nameFancyIdAndRedeemedMaybe,
             '",',
-            '"foo": "bar",',
+            '"description": "a description goes here",',
+            '"image": "',
+            animationurl,
+            '",',
+            '"animation_url": "',
+            animationurl,
+            '",',
+            '"attributes": [ { "trait_type": "Spirit", "value": "Gin" } ],',
             '"redeemable": ',
             redeemable,
             "",
-            // Replace with extra ERC721 Metadata properties
             "}"
         );
 
