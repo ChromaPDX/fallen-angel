@@ -1,6 +1,9 @@
 const chain = require("wagmi").chain;
 
 module.exports = {
+
+  metadataCID: "bafybeifs6wne6ieolcyo2ua3csnq4xub7xrrk324b6jzxrcgvdhhvqx3z4",
+
   // _pricePerToken: "0.0",
   // _pricePerTokenInWei: "0000000000000000",
   // paper link smoketest (0.005) https://paper.xyz/checkout/54120ec3-a856-4f36-ab9d-bdda30ab8c17
@@ -20,7 +23,7 @@ module.exports = {
   owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
   // owner: "0x0A58e58ECb0dD36E0e56975b86F9d76Dd9e4272e",
 
-  contractAddress: "0x01eF73549700Fe889C51EbAA82378d4A8a7F5ede",
+  contractAddress: "0x1d4E13a7E33890fA54EdB89F8477d2180ed970AB",
   // contractAddress: "0x83D70B516D691e2518bebcc4825ccf98f5a08d7C",
   // contractAddress: "0x83D70B516D691e2518bebcc4825ccf98f5a08d7C",
 

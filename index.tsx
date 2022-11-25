@@ -1,20 +1,18 @@
-require("@rainbow-me/rainbowkit/styles.css");
-
 import React, { useEffect, useState } from "react";
 import ReactDom from "react-dom";
 
 import configs from "./config";
 
-// import {
+import "./src/OPJ/item/css/styles.css"
 
-// } from "@thirdweb-dev/react";
+/* @ts-ignore:next-line */
+import image from "./src/nfts/fallen-angel/images/pre/1.jpg";
 
 import { Checkout } from "./src/Checkout";
 import { Redeem } from "./src/Redeem";
 import AppFrame from "./src/AppFrame";
 
 import {
-
   useContract,
   useContractRead,
   useContractWrite,
@@ -23,6 +21,8 @@ import {
   ThirdwebNftMedia, useNFTs, useAccount
 } from "@thirdweb-dev/react";
 import { NFT } from "@thirdweb-dev/sdk";
+
+const maxNfts = 300;
 
 function Home() {
   const { contract, isLoading: contractIsLoading } = useContract(configs.contractAddress);
@@ -51,53 +51,64 @@ function Home() {
 
   return (
     <div>
-      <h2>My NFTs</h2>
 
-      {(state.myNfts || []).map((nft) => (
-        <ThirdwebNftMedia
-          key={nft.metadata.id}
-          metadata={nft.metadata}
-          height={"200"}
-        />
-      ))}
+      <section className="py-5">
+        <div className="container px-4 px-lg-5 my-5">
+          <div className="row gx-4 gx-lg-5 align-items-center">
+            <div className="col-md-6">
+              <img className="card-img-top mb-5 mb-md-0"
+
+                src={image}
+
+                alt="..." />
+            </div>
+            <div className="col-md-6">
+
+              <h1 className="display-5 fw-bolder">Liquid Collections x Fallen Angel</h1>
+              <div className="fs-5 mb-5">
+                <span>{configs._pricePerToken} ETH</span>
+              </div>
+              <p className="lead">
+                The inaugural drop of Fallen Angel Tequila, a super-premium reposado made from 100% Blue Weber Agave. A collaboration between Meta Angels and Liquid Collections, this Liquid-backed token features the beautiful artwork from Aslan Ruby and is redeemable for our limited edition Fallen Angel Tequila.  Return to this page at Liquid Collections for additional tequila details and redemption information in February 2023:
+                <a href="https://liquidcollections.com/collections/fallen-angel-tequila"> https://liquidcollections.com/collections/fallen-angel-tequila</a>
+              </p>
+              <div className="d-flex">
+
+                <input
+                  style={
+                    {
+                      width: '4rem'
+                    }
+                  }
+                  type="number"
+                  min="1"
+                  max="maxNfts"
+                  value={state.quantity}
+                  onChange={(e) => {
+                    setState({
+                      ...state,
+                      quantity: Math.min(Number.parseInt(e.target.value), maxNfts)
+                    })
+                  }} />
 
 
+                <button
+                  className="btn btn-outline-dark flex-shrink-0" type="button"
+                  onClick={(e) => {
+                    contract?.erc721.claim(state.quantity)
+                  }}
+                >
 
-      <hr />
+                  <i className="bi-cart-fill me-1"></i>
+                  Mint {state.quantity}
+                </button>
+              </div>
 
-      <h2>Claim an NFT, if you are allowed</h2>
-      <input
-        type="number"
-        min="1"
-        max="300"
-        value={state.quantity}
-        onChange={(e) => setState({
-          ...state,
-          quantity: Number.parseInt(e.target.value)
-        })} />
-      <button onClick={(e) => {
-        contract?.erc721.claim(state.quantity)
-      }}>claim {state.quantity} NFTs</button>
-
-      <hr />
-
-      <h2>All NFTs</h2>
-      {isReadingNfts ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          {nfts?.map((nft) => (
-            <ThirdwebNftMedia
-              key={nft.metadata.id}
-              metadata={nft.metadata}
-              height={"200"}
-            />
-          ))}
+            </div>
+          </div>
         </div>
-      )}
+      </section>
 
-
-      <hr />
     </div>
   );
 }
@@ -113,7 +124,7 @@ const YourApp = () => {
 };
 
 const LiquidCollectionReactApp = (props: any) => {
-  return (<ThirdwebProvider desiredChainId={ChainId.Goerli}>
+  return (<ThirdwebProvider desiredChainId={configs.chain.id}>
     <YourApp />
 
     {/* <AppFrame >
