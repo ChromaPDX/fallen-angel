@@ -1,11 +1,16 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.13;
 
 import "@thirdweb-dev/contracts/base/ERC721Drop.sol";
 import "@thirdweb-dev/contracts/eip/interface/IERC721Enumerable.sol";
 import "@thirdweb-dev/contracts/extension/Drop.sol";
+import "@thirdweb-dev/contracts/extension/DefaultOperatorFilterer.sol";
 
-contract LiquidCollections is IERC721Enumerable, ERC721Drop {
+contract LiquidCollections is
+    IERC721Enumerable,
+    ERC721Drop,
+    DefaultOperatorFilterer
+{
     constructor(
         string memory _name,
         string memory _symbol,

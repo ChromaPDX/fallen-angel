@@ -5,7 +5,7 @@ const configs = require('../config.js');
 const main = async () => {
   const sdk = ThirdwebSDK.fromPrivateKey(secrets.privateKey, configs.chain.network);
   const contract = await sdk.getContract(configs.contractAddress);
-  console.log((await contract.erc721.getClaimTransaction()).args[4])
+  console.log(contract)
 }
 
 const runMain = async () => {

@@ -1,29 +1,28 @@
 const chain = require("wagmi").chain;
 
-// 5000000000000000
 module.exports = {
-  // _pricePerToken: "0.005",
-  // _pricePerTokenInWei: "5000000000000000",
+  // _pricePerToken: "0.0",
+  // _pricePerTokenInWei: "0000000000000000",
   // paper link smoketest (0.005) https://paper.xyz/checkout/54120ec3-a856-4f36-ab9d-bdda30ab8c17
 
 
-  // _pricePerToken: "0.05",
-  // _pricePerTokenInWei: "50000000000000000",
+  _pricePerToken: "0.01",
+  _pricePerTokenInWei: "10000000000000000",
   // paper link 0         (0.05)  https://paper.xyz/checkout/36ae33af-ab50-4196-bec2-ede8ef29b84b
 
+  // _pricePerToken: "0.06",
+  // _pricePerTokenInWei: "60000000000000000",
 
-  _pricePerToken: "0.06",
-  _pricePerTokenInWei: "60000000000000000",
   paperCheckoutLink: "https://paper.xyz/checkout/f1282701-776b-44f2-909e-0e20b758608c",
 
   currency: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
 
-  contractAddress: "0xA8a4764FD41b036D4B00795bE31E0eba92ef869d",
+  owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
+  // owner: "0x0A58e58ECb0dD36E0e56975b86F9d76Dd9e4272e",
 
-  // owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
-  owner: "0x0A58e58ECb0dD36E0e56975b86F9d76Dd9e4272e",
-
-
+  contractAddress: "0x01eF73549700Fe889C51EbAA82378d4A8a7F5ede",
+  // contractAddress: "0x83D70B516D691e2518bebcc4825ccf98f5a08d7C",
+  // contractAddress: "0x83D70B516D691e2518bebcc4825ccf98f5a08d7C",
 
   allowListProof: [
     '0xeafac40d278a20912dad05fa5ea3b0c8489d4b9e382f8925e343ea6d7986b376',
@@ -31,11 +30,11 @@ module.exports = {
   ],
 
   // development
-  // alchemyKey: "yxZEOqdqzCNCExJZEwY4iPEeu6jZpyMi",
-  chain: chain.mainnet,
+  alchemyKey: "yxZEOqdqzCNCExJZEwY4iPEeu6jZpyMi",
+  chain: chain.goerli,
 
   // production
-  alchemyKey: "577rlGmGIdps3j2owCjazI3jPeYrgvNt",
+  // alchemyKey: "577rlGmGIdps3j2owCjazI3jPeYrgvNt",
   // chain: chain.mainnet
 
   stripeCheckoutLink: "https://buy.stripe.com/5kA8xs4Tp4SkehafYY",

@@ -26,6 +26,7 @@ const config = {
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
   module: {
+    strictExportPresence: false,
     rules: [
       {
         test: /\.(ts|tsx)$/i,
