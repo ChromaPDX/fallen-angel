@@ -1,13 +1,13 @@
 const chain = require("wagmi").chain;
 
 module.exports = {
-  _pricePerToken: "0.0",
-  _pricePerTokenInWei: "0000000000000000",
+  // _pricePerToken: "0.0",
+  // _pricePerTokenInWei: "0000000000000000",
   // paper link smoketest (0.005) https://paper.xyz/checkout/54120ec3-a856-4f36-ab9d-bdda30ab8c17
 
 
-  // _pricePerToken: "0.05",
-  // _pricePerTokenInWei: "50000000000000000",
+  _pricePerToken: "0.01",
+  _pricePerTokenInWei: "10000000000000000",
   // paper link 0         (0.05)  https://paper.xyz/checkout/36ae33af-ab50-4196-bec2-ede8ef29b84b
 
   // _pricePerToken: "0.06",
