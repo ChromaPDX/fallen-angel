@@ -64,13 +64,15 @@ function Home() {
             </div>
             <div className="col-md-6">
 
-              <h1 className="display-5 fw-bolder">Liquid Collections x Fallen Angel</h1>
+              <h1 className="display-5 fw-bolder">Fallen Angel Tequilla by Liquid Collections</h1>
               <div className="fs-5 mb-5">
                 <span>{configs._pricePerToken} ETH</span>
               </div>
               <p className="lead">
-                The inaugural drop of Fallen Angel Tequila, a super-premium reposado made from 100% Blue Weber Agave. A collaboration between Meta Angels and Liquid Collections, this Liquid-backed token features the beautiful artwork from Aslan Ruby and is redeemable for our limited edition Fallen Angel Tequila.  Return to this page at Liquid Collections for additional tequila details and redemption information in February 2023:
-                <a href="https://liquidcollections.com/collections/fallen-angel-tequila"> https://liquidcollections.com/collections/fallen-angel-tequila</a>
+                The inaugural drop of Fallen Angel Tequila, a super-premium reposado made from 100% Blue Weber Agave. A collaboration between Meta Angels and Liquid Collections, this Liquid-backed token features the beautiful artwork from Aslan Ruby and is redeemable for our limited edition Fallen Angel Tequila.                  
+              </p>
+              <p>
+                <a href="https://liquidcollections.com/collections/fallen-angel-tequila">After minting, return to Liquid Collections</a> for additional redemption details.
               </p>
               <div className="d-flex">
 
