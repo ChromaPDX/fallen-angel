@@ -9,8 +9,8 @@ module.exports = {
   // paper link smoketest (0.005) https://paper.xyz/checkout/54120ec3-a856-4f36-ab9d-bdda30ab8c17
 
 
-  _pricePerToken: "0.01",
-  _pricePerTokenInWei: "10000000000000000",
+  _pricePerToken: "0.065",
+  _pricePerTokenInWei: "65000000000000000",
   // paper link 0         (0.05)  https://paper.xyz/checkout/36ae33af-ab50-4196-bec2-ede8ef29b84b
 
   // _pricePerToken: "0.06",
@@ -23,7 +23,7 @@ module.exports = {
   owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
   // owner: "0x0A58e58ECb0dD36E0e56975b86F9d76Dd9e4272e",
 
-  contractAddress: "0x1d4E13a7E33890fA54EdB89F8477d2180ed970AB",
+  contractAddress: "0x3E7286ec13eFda945329901163b84915555d6157",
   // contractAddress: "0x83D70B516D691e2518bebcc4825ccf98f5a08d7C",
   // contractAddress: "0x83D70B516D691e2518bebcc4825ccf98f5a08d7C",
 

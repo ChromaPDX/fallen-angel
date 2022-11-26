@@ -81,6 +81,42 @@ contract LiquidCollections is
     //     );
     // }
 
+    function setApprovalForAll(address operator, bool approved)
+        public
+        override
+    {
+        super.setApprovalForAll(operator, approved);
+    }
+
+    // function approve(address operator, uint256 tokenId) public override {
+    //     super.approve(operator, tokenId);
+    // }
+
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public override onlyAllowedOperator(from) {
+        super.transferFrom(from, to, tokenId);
+    }
+
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public override onlyAllowedOperator(from) {
+        super.safeTransferFrom(from, to, tokenId);
+    }
+
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes memory data
+    ) public override onlyAllowedOperator(from) {
+        super.safeTransferFrom(from, to, tokenId, data);
+    }
+
     /////////////////////
     // redemption
     /////////////////////
