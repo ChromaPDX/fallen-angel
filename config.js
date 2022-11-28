@@ -2,7 +2,7 @@ const chain = require("wagmi").chain;
 
 module.exports = {
 
-  metadataCID: "bafybeifs6wne6ieolcyo2ua3csnq4xub7xrrk324b6jzxrcgvdhhvqx3z4",
+  metadataCID: "bafybeiaxucaszbmk6zmjtmxixzrifwdol4khjvq2m3oew64ukliy7ivug4",
 
   // _pricePerToken: "0.0",
   // _pricePerTokenInWei: "0000000000000000",
@@ -20,10 +20,10 @@ module.exports = {
 
   currency: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
 
-  owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
-  // owner: "0x0A58e58ECb0dD36E0e56975b86F9d76Dd9e4272e",
+  // owner: "0xB1e03503AB2C0159a4CeF0f9b4703292C221eF45",
+  owner: "0x0A58e58ECb0dD36E0e56975b86F9d76Dd9e4272e",
 
-  contractAddress: "0x3E7286ec13eFda945329901163b84915555d6157",
+  contractAddress: "0xA983d04C0FcA6AB46452fe6281a1fcD7f982E3F5",
   // contractAddress: "0x83D70B516D691e2518bebcc4825ccf98f5a08d7C",
   // contractAddress: "0x83D70B516D691e2518bebcc4825ccf98f5a08d7C",
 
@@ -33,12 +33,12 @@ module.exports = {
   ],
 
   // development
-  alchemyKey: "yxZEOqdqzCNCExJZEwY4iPEeu6jZpyMi",
-  chain: chain.goerli,
+  // alchemyKey: "yxZEOqdqzCNCExJZEwY4iPEeu6jZpyMi",
+  // chain: chain.goerli,
 
   // production
-  // alchemyKey: "577rlGmGIdps3j2owCjazI3jPeYrgvNt",
-  // chain: chain.mainnet
+  alchemyKey: "577rlGmGIdps3j2owCjazI3jPeYrgvNt",
+  chain: chain.mainnet,
 
   stripeCheckoutLink: "https://buy.stripe.com/5kA8xs4Tp4SkehafYY",
 

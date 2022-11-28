@@ -38,7 +38,7 @@ contract FallenAngels is LiquidCollections {
         returns (string memory)
     {
         string
-            memory cid = "bafybeifs6wne6ieolcyo2ua3csnq4xub7xrrk324b6jzxrcgvdhhvqx3z4";
+            memory cid = "bafybeiaxucaszbmk6zmjtmxixzrifwdol4khjvq2m3oew64ukliy7ivug4";
         string memory fancyId = Strings.toString(_tokenId + 1);
         string memory redeemed = " [REDEEMED]";
         string memory nameFancyIdAndRedeemedMaybe;

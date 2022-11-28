@@ -20,7 +20,7 @@ const sdk = ThirdwebSDK.fromPrivateKey(PRIVATE_KEY, configs.chain.network);
 //   // image: fs.readFileSync("path/to/image.png"),
 // }];
 
-const metadatas = new Array(5).fill({});
+const metadatas = new Array(999).fill({});
 
 const contract = await sdk.getContract(configs.contractAddress);
 const results = await contract.erc721.lazyMint(metadatas);
