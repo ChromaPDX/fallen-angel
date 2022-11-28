@@ -22,7 +22,7 @@ import {
 } from "@thirdweb-dev/react";
 import { NFT } from "@thirdweb-dev/sdk";
 
-const maxNfts = 1000;
+const maxNfts = 6;
 
 function Home() {
   const { contract, isLoading: contractIsLoading } = useContract(configs.contractAddress);
