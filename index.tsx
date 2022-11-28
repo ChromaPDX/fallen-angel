@@ -102,8 +102,8 @@ function Home() {
                     try {
                       await contract?.erc721.claim(state.quantity);
                       alert(`transaction succeded. You just purchased ${state.quantity}`)
-                    } catch {
-                      alert("transaction failed")
+                    } catch (e) {
+                      alert("transaction failed" + e)
                     }
 
 
