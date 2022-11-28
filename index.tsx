@@ -64,7 +64,7 @@ function Home() {
             </div>
             <div className="col-md-6">
 
-              <h1 className="display-5 fw-bolder">Fallen Angel Tequila by Liquid Collections</h1>
+              <h1 className="display-5 fw-bolder">Fallen Angel Tequilla by Liquid Collections</h1>
               <div className="fs-5 mb-5">
                 <span>{configs._pricePerToken} ETH</span>
               </div>
