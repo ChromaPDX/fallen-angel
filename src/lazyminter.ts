@@ -8,24 +8,29 @@ if (!process.env.privatekey) {
 }
 const PRIVATE_KEY = process.env.privatekey;
 
-const sdk = ThirdwebSDK.fromPrivateKey(PRIVATE_KEY, configs.chain.network);
+// console.log("PRIVATE_KEY", PRIVATE_KEY);
+const sdk = ThirdwebSDK.fromPrivateKey(PRIVATE_KEY, "mainnet", {
+  // gasSettings: {
+  //   maxPriceInGwei: 90000,
+  // },
+});
 
-// const metadatas = [{
-//   name: "Cool NFT",
-//   description: "This is a cool NFT",
-//   // image: fs.readFileSync("path/to/image.png"), // This can be an image url or file
-// }, {
-//   name: "Cool NFT",
-//   description: "This is a cool NFT",
-//   // image: fs.readFileSync("path/to/image.png"),
-// }];
-
-const metadatas = new Array(999).fill({});
+const metadatas = new Array(500).fill({});
 
 const contract = await sdk.getContract(configs.contractAddress);
+
+// contract.interceptor.overrideNextTransaction(() => ({
+//   gasLimit: 30000,
+// }));
+
+// const costOfClaim = await contract?.estimator.gasCostOf("lazyMint", [
+//   metadatas,
+// ]);
+// console.log("costOfClaim", costOfClaim);
+
 const results = await contract.erc721.lazyMint(metadatas);
 
-console.log("done", results);
+// console.log("done", results);
 // import { NFTStorage } from 'nft.storage'
 
 // import path from "path";

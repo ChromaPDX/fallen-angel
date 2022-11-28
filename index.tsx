@@ -98,8 +98,15 @@ function Home() {
 
                 <button
                   className="btn btn-outline-dark flex-shrink-0" type="button"
-                  onClick={(e) => {
-                    contract?.erc721.claim(state.quantity)
+                  onClick={async (e) => {
+                    try {
+                      await contract?.erc721.claim(state.quantity);
+                      alert(`transaction succeded. You just purchased ${state.quantity}`)
+                    } catch {
+                      alert("transaction failed")
+                    }
+
+
                   }}
                 >
 
