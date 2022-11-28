@@ -4,7 +4,7 @@ module.exports = {
 
   metadataCID: "bafybeiaxucaszbmk6zmjtmxixzrifwdol4khjvq2m3oew64ukliy7ivug4",
 
-  // _pricePerToken: "0.0",
+  // _pricePerToken: "0.065",
   // _pricePerTokenInWei: "0000000000000000",
   // paper link smoketest (0.005) https://paper.xyz/checkout/54120ec3-a856-4f36-ab9d-bdda30ab8c17
 

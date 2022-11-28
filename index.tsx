@@ -22,7 +22,7 @@ import {
 } from "@thirdweb-dev/react";
 import { NFT } from "@thirdweb-dev/sdk";
 
-console.log("configs.contractAddress", configs.contractAddress)
+console.log("configs", configs)
 
 const maxNfts = 6;
 
@@ -79,8 +79,8 @@ function Home() {
               </p>
 
               <div className="d-flex">
-                <p>We are experiencing some technical difficulties with the allowlist integration and will be redeploying very soon.</p>
-                {/* <input
+                {/* <p>We are experiencing some technical difficulties with the allowlist integration and will be redeploying very soon.</p> */}
+                <input
                   style={
                     {
                       width: '4rem'
@@ -102,7 +102,10 @@ function Home() {
                   className="btn btn-outline-dark flex-shrink-0" type="button"
                   onClick={async (e) => {
                     try {
-                      await contract?.erc721.claim(state.quantity);
+                      const tx = await contract?.erc721.claim(state.quantity);
+                      // const claimedTokenId = tx.id; // the id of the NFT claimed
+                      // const claimedNFT = await tx.data(); // (optional) get the claimed NFT metadata
+
                       alert(`transaction succeded. You just purchased ${state.quantity}`)
                     } catch (e) {
                       alert("transaction failed" + e)
@@ -114,7 +117,7 @@ function Home() {
 
                   <i className="bi-cart-fill me-1"></i>
                   Mint {state.quantity}
-                </button> */}
+                </button>
               </div>
 
             </div>
