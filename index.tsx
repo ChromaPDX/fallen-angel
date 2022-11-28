@@ -77,8 +77,8 @@ function Home() {
               </p>
 
               <div className="d-flex">
-
-                <input
+                <p>We are experiencing some technical difficulties with the allowlist integration and will be redeploying very soon.</p>
+                {/* <input
                   style={
                     {
                       width: '4rem'
@@ -112,7 +112,7 @@ function Home() {
 
                   <i className="bi-cart-fill me-1"></i>
                   Mint {state.quantity}
-                </button>
+                </button> */}
               </div>
 
             </div>
