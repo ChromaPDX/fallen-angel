@@ -10,6 +10,7 @@
         "@koa/router": "^12.0.0",
         "@nomicfoundation/hardhat-chai-matchers": "^1.0.4",
         "@nomiclabs/hardhat-ethers": "^2.0.0",
+        "@nomiclabs/hardhat-etherscan": "^3.1.2",
         "@openzeppelin/contracts": "4.7.3",
         "@openzeppelin/contracts-upgradeable": "^4.8.0",
         "@rainbow-me/rainbowkit": "0.7.3",
@@ -86,6 +87,7 @@
         "build-run:server": "nodemon ./dist/server.bundle.js; yarn webpack --watch -c server.webpack.config.js",
         "build:NftFactory": "yarn webpack -c nfts.webpack.config.js",
         "ipfs:upload": "yarn webpack -c ipfsUploader.webpack.config.js && node ./dist/ipfsUploader.bundle.js",
-        "lazyminter": "yarn webpack -c lazyminter.webpack.config.js && node ./dist/lazyminter.bundle.js"
+        "lazyminter": "yarn webpack -c lazyminter.webpack.config.js && node ./dist/lazyminter.bundle.js",
+        "verify:etherscan": "npx hardhat verify --constructor-args arguments.js --network mainnet 0xA983d04C0FcA6AB46452fe6281a1fcD7f982E3F5 "
     }
 }

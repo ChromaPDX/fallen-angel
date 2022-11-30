@@ -108,6 +108,7 @@ function Home() {
 
                       alert(`transaction succeded. You just purchased ${state.quantity}`)
                     } catch (e) {
+                      console.error(e)
                       alert("transaction failed" + e)
                     }
 

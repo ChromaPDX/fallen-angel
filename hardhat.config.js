@@ -1,6 +1,6 @@
 /** @type import('hardhat/config').HardhatUserConfig */
 require("@nomicfoundation/hardhat-chai-matchers")
-
+require("@nomiclabs/hardhat-etherscan");
 
 module.exports = {
   // networks: {
@@ -12,6 +12,19 @@ module.exports = {
   //   }
   // },
 
+
+  networks: {
+    mainnet: {
+      url: "https://eth-mainnet.g.alchemy.com/v2/577rlGmGIdps3j2owCjazI3jPeYrgvNt"
+    }
+    // testnet: { ... }
+  },
+  etherscan: {
+    apiKey: {
+      mainnet: "C8QAI3E7PS6FZR16U3F7MHQFM5JH9CNJM4",
+    }
+  },
+
   solidity: {
     version: '0.8.13',
     settings: {
@@ -21,4 +34,5 @@ module.exports = {
       },
     },
   },
+
 };
