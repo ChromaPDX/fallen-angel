@@ -10,8 +10,8 @@ module.exports = {
   // _pricePerToken: "0.06",
   // _pricePerTokenInWei: "60000000000000000",
 
-  _pricePerToken: "0.075",
-  _pricePerTokenInWei: "75000000000000000",
+  _pricePerToken: "0.04",
+  _pricePerTokenInWei: "40000000000000000",
 
   currency: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
 
@@ -57,3 +57,5 @@ module.exports = {
 //   "proof": ["0x0000000000000000000000000000000000000000000000000000000000000000"],
 //     "maxQuantityInAllowlist": 0
 // }
+
+// 0.062
