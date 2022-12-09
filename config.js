@@ -10,8 +10,8 @@ module.exports = {
   // _pricePerToken: "0.06",
   // _pricePerTokenInWei: "60000000000000000",
 
-  _pricePerToken: "0.04",
-  _pricePerTokenInWei: "40000000000000000",
+  _pricePerToken: "0.065",
+  _pricePerTokenInWei: "65000000000000000",
 
   currency: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
 
