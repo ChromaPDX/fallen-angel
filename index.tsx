@@ -23,9 +23,6 @@ import {
 import { NFT } from "@thirdweb-dev/sdk";
 
 console.log("configs", configs)
-
-const maxNfts = 6;
-
 function Home() {
   const { contract, isLoading: contractIsLoading } = useContract(configs.contractAddress);
   const { data: nfts, isLoading: isReadingNfts } = useNFTs(contract);
@@ -91,9 +88,10 @@ function Home() {
                   max="maxNfts"
                   value={state.quantity}
                   onChange={(e) => {
+                    const n: number = Number.parseInt(e.target.value) || 0;
                     setState({
                       ...state,
-                      quantity: Math.min(Number.parseInt(e.target.value), maxNfts)
+                      quantity: configs.numberOfNftsMintableAtOnce ? Math.min(n, configs.numberOfNftsMintableAtOnce) : n
                     })
                   }} />
 

@@ -2,6 +2,8 @@ const chain = require("wagmi").chain;
 
 module.exports = {
 
+  numberOfNftsMintableAtOnce: 50,
+
   metadataCID: "bafybeiaxucaszbmk6zmjtmxixzrifwdol4khjvq2m3oew64ukliy7ivug4",
 
   // _pricePerToken: "0.001",
